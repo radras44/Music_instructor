@@ -1,0 +1,53 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin: 20px 0px 20px 0px;
+}
+.label {
+    position: relative;
+    margin: 20px 0px 20px 60px;
+    font-size: 1.2rem;
+    color: #ccc;
+}
+
+.label::before {
+    position: absolute;
+    content: "";
+    top: 50%;
+    background-color: var(--green);
+    width: 10px;
+    height: 4px;
+    left: -35px;
+    border-radius: 10%;
+}
+
+.indicator-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.indicator {
+    height: 40px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #222;
+    border: 1px solid black;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888888;
+}
+
+.indicator--active {
+    background-color: var(--green);
+    color: black;
+}
+
+.indicator-text {
+    font-size: 0.8rem;
+    font-weight: 500;
+}
