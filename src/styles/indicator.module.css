@@ -7,8 +7,9 @@
 .label {
     position: relative;
     margin: 20px 0px 20px 60px;
-    font-size: 1.2rem;
-    color: #ccc;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #aaa;
 }
 
 .label::before {
@@ -41,13 +42,13 @@
     justify-content: center;
     color: #888888;
 }
+.indicator-text {
+    font-size: 0.8rem;
+    font-weight:800;
+}
 
 .indicator--active {
     background-color: var(--green);
     color: black;
 }
 
-.indicator-text {
-    font-size: 0.8rem;
-    font-weight: 500;
-}

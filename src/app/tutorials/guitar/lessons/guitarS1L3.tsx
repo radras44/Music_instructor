@@ -1,57 +1,57 @@
-import { GuitarNeck } from "@/components/guitar";
-import { LessonContainer, LessonDivider, LessonParagraph, LessonBox, LessonSubtitle, LessonTitle } from "@/components/lessonComponents";
+import { LessonContainer, LessonParagraph, LessonTitle, LessonBox, LessonSubtitle, LessonAlert } from "@/components/lessonComponents/lessonComponents";
 import { LessonComponent } from "@/interfaces/baseInterfaces";
-import { Hcontainer } from "@/styles/styles";
-import { Box } from "@mui/material";
+import { LessonIndicator } from "@/components/lessonComponents/lessonIndicator";
 
-export default function GuitarS1L2({ title }: LessonComponent) {
+export default function GuitarS1L3({ title }: LessonComponent) {
     return (
         <LessonContainer>
             <LessonTitle title={title} />
             <LessonBox>
-                <LessonParagraph text="Estos son algunos ejemplo de calcular semitonos pero en la guitarra" />
-                <LessonDivider>
-                    <Box sx={{ ...Hcontainer() }}>
-                        <GuitarNeck
-                            neckRange={[0, 5]}
-                            label="1 semitonos desde Do"
-                            fretMarkers={[
-                                { string: 5, fret: 3, text: "Do" },
-                                { string: 5, fret: 4, text: "Do#" }
-                            ]}
-                            rootNote="Do"
-                        />
-                        <GuitarNeck
-                            neckRange={[0, 5]}
-                            label="2 semitonos desde Do"
-                            fretMarkers={[
-                                { string: 5, fret: 3, text: "Do" },
-                                { string: 5, fret: 5, text: "Re" }
-                            ]}
-                            rootNote="Do"
-                        />
-                        <GuitarNeck
-                            neckRange={[0, 5]}
-                            label="3 semitonos desde Fa"
-                            fretMarkers={[
-                                { string: 6, fret: 1, text: "Fa" },
-                                { string: 6, fret: 4, text: "Sol#" }
-                            ]}
-                            rootNote="Fa"
-                        />
-
-                        <GuitarNeck
-                            neckRange={[0, 5]}
-                            label="5 semitonos desde Mi"
-                            fretMarkers={[
-                                { string: 6, fret: 0, text: "Mi" },
-                                { string: 6, fret: 5, text: "La" }
-                            ]}
-                            rootNote="1"
-                        />
-                    </Box>
-
-                </LessonDivider>
+                <LessonSubtitle text="El semitono" />
+                <LessonParagraph text="el semitono vendria a ser la unidad minima de distancia entre una nota y otra, o porlomenos entre las notas que conocemos y usamos de forma estandarizada, aqui hay unos ejemplos usando la nota Do como punto de referencia para calcular los semitonos." />
+                <LessonIndicator
+                    label="un semitono"
+                    listType="notes"
+                    indicators={["Do", "Do#"]}
+                />
+                <LessonIndicator
+                    label="dos semitonos"
+                    listType="notes"
+                    indicators={["Do", "Re"]}
+                />
+                <LessonIndicator
+                    label="tres semitonos"
+                    listType="notes"
+                    indicators={["Do", "Re#"]}
+                />
+                <LessonParagraph text="Esto es independiente de la nota en la que comience, el punto de referencia podria ser Re# y seria lo mismo" />
+                <LessonIndicator
+                    label="dos semitonos desde Re#"
+                    listType="notes"
+                    indicators={["Re#", "Fa"]}
+                />
+                <LessonIndicator
+                    label="tres semitonos desde Re#"
+                    listType="notes"
+                    indicators={["Re#", "Fa#"]}
+                />
+                <LessonParagraph text="Tambien existe el tono, que es una unidad que vale 2 semitonos" />
+                <LessonIndicator
+                    label="un tono desde Do (2 semitonos)"
+                    listType="notes"
+                    indicators={["Do", "Re"]}
+                />
+                <LessonIndicator
+                    label="dos tonos desde Do (4 semitonos)"
+                    listType="notes"
+                    indicators={["Do", "Mi"]}
+                />
+                <LessonParagraph text="Cuanto recorrer 12 semitonos llegaras a la misma nota con la que partiste solo que mas aguda, si contaras 12 semitonos hacia atras llegaria tambien a la misma nota, pero mas grave."/>
+                <LessonAlert severity="info" text="A esto tambien se le llama 'Octava', en este caso '1 octava mas aguda', este es un intervalo musical, tema que se trata en lecciones posteriores."/>
+                <LessonIndicator
+                limit={13}
+                indicators={["Do"]}
+                />
             </LessonBox>
         </LessonContainer>
     )

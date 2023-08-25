@@ -1,5 +1,5 @@
 "use client"
-import { SideBarLessonList } from "@/components/listComponentes";
+import { SideBarLessonList } from "@/components/lessonComponents/sideBarLessonList";
 import { TutorialLesson, TutorialSection } from "@/interfaces/baseInterfaces";
 import { Grid } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
@@ -20,19 +20,20 @@ export default function GuitarLessons() {
         }
     }, [])
     return (
-        <ThemeContainer maxWidth="lg">
+        <ThemeContainer maxWidth="xl">
             <Grid container>
                 <Grid item xs={3}>
                     {
                         currentLesson ?
                             <SideBarLessonList
+                                courseName="guitar"
                                 lessonSections={guitarSections}
                                 setCurrentLesson={setCurrentLesson}
                                 initialNameValue={currentLesson?.name}
                             /> : null
                     }
                 </Grid>
-                <Grid item xs={9}>
+                <Grid item xs={7}>
                     {currentLesson?.component}
                 </Grid>
             </Grid>

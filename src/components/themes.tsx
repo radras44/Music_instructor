@@ -6,13 +6,17 @@ export const darkTheme = createTheme({
     }
 })
 
-interface ThemeContainerProps extends ContainerProps {}
+interface ThemeContainerProps extends ContainerProps { }
 
-export default function ThemeContainer ({children,maxWidth,sx} : ThemeContainerProps) {
+export default function ThemeContainer({ children, maxWidth, sx }: ThemeContainerProps) {
     return (
         <ThemeProvider theme={darkTheme}>
-            <CssBaseline/>
-            <Container maxWidth={maxWidth} sx={sx}>
+            <CssBaseline />
+            <Container maxWidth={maxWidth} sx={{
+                mr: maxWidth == "xl" ? 5 : null,
+                ml: maxWidth == "xl" ? 5 : null,
+                mt: 5,
+            }}>
                 {children}
             </Container>
         </ThemeProvider>

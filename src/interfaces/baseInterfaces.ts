@@ -14,3 +14,8 @@ export interface TutorialSection {
 export interface LessonComponent {
     title : string    
 }
+
+export interface Statement {
+    statement: string
+    correction: JSX.Element | string
+}
