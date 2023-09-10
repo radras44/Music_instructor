@@ -75,6 +75,7 @@ export default function GuitarLessons() {
                             : null
                     }
                 </Grid>
+                
                 <Grid item lg={9} xs={11.8}>
                     <Box sx={{ marginLeft: 2 }}>
                         {currentLesson?.component}
