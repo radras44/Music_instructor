@@ -1,4 +1,4 @@
-import { TutorialLesson, TutorialSection } from "@/interfaces/baseInterfaces";
+import { CourseLesson, CourseSection } from "@/interfaces/baseInterfaces"
 
 export function saveLessonId (courseName : string,lessonId : string){
     courseName = courseName[0].toUpperCase() + courseName.slice(1)
@@ -7,7 +7,7 @@ export function saveLessonId (courseName : string,lessonId : string){
     }
 }
 
-export function getSavedLesson (courseName : string,lessonSections : TutorialSection[]){
+export function getSavedLesson (courseName : string,lessonSections : CourseSection[]){
     courseName = courseName[0].toUpperCase() + courseName.slice(1)
     if(window === undefined){
         return {
@@ -27,7 +27,7 @@ export function getSavedLesson (courseName : string,lessonSections : TutorialSec
 
     const sectionNumber = Number(lessonId.substring(lessonId.indexOf("S") +1 ,lessonId.indexOf("L")))
     const lessonNumber = Number(lessonId.split("L")[1])
-    const section : TutorialSection | null = lessonSections.find(section => section.sectionNumber === sectionNumber ) || null
+    const section : CourseSection | null = lessonSections.find(section => section.sectionNumber === sectionNumber ) || null
     if(!section){
         return {
             status : false,
@@ -37,7 +37,7 @@ export function getSavedLesson (courseName : string,lessonSections : TutorialSec
     }
     console.log(`section es nulo`)
 
-    const lesson : TutorialLesson | null = section.lessons.find(lesson => lesson.lessonNumber === lessonNumber) || null
+    const lesson : CourseLesson | null = section.lessons.find(lesson => lesson.lessonNumber === lessonNumber) || null
     
     return {
         status : true,

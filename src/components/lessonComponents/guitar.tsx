@@ -30,6 +30,7 @@ export function GuitarNeck({
     setWhenAddMarker,
     resetEmit
 }: GuitarNeckProps) {
+    console.log("render")
     const stringRefs = useRef<Array<HTMLDivElement | null>>(
         Array.from({ length: strings }).map(() => null)
     );
@@ -122,57 +123,57 @@ export function GuitarNeck({
     }, [])
 
     //monitorear estado para resetear los marcadores
-    if (resetEmit) {
-        useEffect(() => {
+    useEffect(() => {
+        if (resetEmit) {
             if (addedMarkers.length > 0) {
                 resetMarkers()
             }
-        }, [resetEmit])
-    }
+        }
+    }, [resetEmit])
 
     //actualizar estado cada vez que se agrega un marcador
-    if (setWhenAddMarker) {
-        useEffect(() => {
+    useEffect(() => {
+        if (setWhenAddMarker) {
             const data = addedMarkers
-            console.log("se agregaran:",data)
+            console.log("se agregaran:", data)
             setWhenAddMarker(data)
-        }, [addedMarkers])
-    }
+        }
+    }, [addedMarkers])
 
     return (
-            <div className={guitarStyles.neck}>
-                {
-                    label ?
-                        <h5 className={guitarStyles["neck-label"]}>{label}</h5>
-                        : null
-                }
-                {/* Crear cuerdas */}
-                {Array.from({ length: strings }).map((_, stringIdx) => (
-                    <div
-                        ref={(ref) => (stringRefs.current[stringIdx] = ref)}
-                        key={stringIdx}
-                        className={guitarStyles.string}
-                    >
-                        {/* Crear trastes del mástil */}
-                        {Array.from({ length: (neckRange[1] - neckRange[0]) + 1 }).map((_, fretIdx) => (
-                            <div key={fretIdx} className={
-                                neckRange[0] == 0 && fretIdx == 0 ?
-                                    `${guitarStyles.fret} ${guitarStyles["string-open"]} `
-                                    :
-                                    `${guitarStyles.fret} ${guitarStyles[`string-fret`]}`
-                            }>
-                                {
-                                    stringIdx == 0 && (fretIdx + neckRange[0]) !== 0 ?
-                                        <div className={guitarStyles.fretNumberLabel}>{fretIdx + neckRange[0]}</div>
-                                        : null
-                                }
-                                {/* Crear labels o indicadores encima de cada traste */}
-                                <div className={`${guitarStyles.fretMarker}`}></div>
-                            </div>
-                        ))}
-                    </div>
-                ))}
-            </div>
+        <div className={guitarStyles.neck}>
+            {
+                label ?
+                    <h5 className={guitarStyles["neck-label"]}>{label}</h5>
+                    : null
+            }
+            {/* Crear cuerdas */}
+            {Array.from({ length: strings }).map((_, stringIdx) => (
+                <div
+                    ref={(ref) => (stringRefs.current[stringIdx] = ref)}
+                    key={stringIdx}
+                    className={guitarStyles.string}
+                >
+                    {/* Crear trastes del mástil */}
+                    {Array.from({ length: (neckRange[1] - neckRange[0]) + 1 }).map((_, fretIdx) => (
+                        <div key={fretIdx} className={
+                            neckRange[0] == 0 && fretIdx == 0 ?
+                                `${guitarStyles.fret} ${guitarStyles["string-open"]} `
+                                :
+                                `${guitarStyles.fret} ${guitarStyles[`string-fret`]}`
+                        }>
+                            {
+                                stringIdx == 0 && (fretIdx + neckRange[0]) !== 0 ?
+                                    <div className={guitarStyles.fretNumberLabel}>{fretIdx + neckRange[0]}</div>
+                                    : null
+                            }
+                            {/* Crear labels o indicadores encima de cada traste */}
+                            <div className={`${guitarStyles.fretMarker}`}></div>
+                        </div>
+                    ))}
+                </div>
+            ))}
+        </div>
     );
 }
 
