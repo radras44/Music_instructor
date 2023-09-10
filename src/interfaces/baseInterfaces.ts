@@ -1,14 +1,19 @@
-export interface TutorialLesson {
+export interface CourseLesson {
     lessonNumber : number
     name : string
     description : string
     component : JSX.Element
 }
 
-export interface TutorialSection {
+export interface CourseSection {
     sectionNumber : number
     name : string,
-    lessons : TutorialLesson[]
+    lessons : CourseLesson[]
+}
+
+export interface Course {
+    name : string,
+    sections : CourseSection[]
 }
 
 export interface LessonComponent {

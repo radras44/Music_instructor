@@ -12,10 +12,11 @@ export default function ThemeContainer({ children, maxWidth, sx }: ThemeContaine
     return (
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
-            <Container maxWidth={maxWidth} sx={{
-                mr: maxWidth == "xl" ? 5 : null,
-                ml: maxWidth == "xl" ? 5 : null,
+            <Container maxWidth={maxWidth} sx={{    
                 mt: 5,
+                display : "flex",
+                justifyContent:"center",
+                alignItems : "center"
             }}>
                 {children}
             </Container>

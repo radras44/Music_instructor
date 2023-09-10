@@ -1,116 +1,80 @@
 import { GuitarNeck } from "@/components/lessonComponents/guitar";
-import { LessonContainer, LessonDivider, LessonParagraph, LessonBox, LessonSubtitle, LessonTitle, LessonAlert, LessonListItem } from "@/components/lessonComponents/lessonComponents";
-import QuestionModal, { QuestionModalButton, useQuestionModal } from "@/components/lessonComponents/questionModal";
+import { LessonBox, LessonContainer, LessonListItem, LessonParagraph, LessonSubtitle, LessonTitle } from "@/components/lessonComponents/lessonComponents";
+import QuestionModal, { QuestionModalButton, neckQuestion, useQuestionModal } from "@/components/lessonComponents/questionModal";
 import { LessonComponent } from "@/interfaces/baseInterfaces";
-import { Hcontainer } from "@/styles/styles";
-import { Box } from "@mui/material";
-import { guitarS1L4Questions } from "./questions/guitarS1Questions";
+import { guitarS1L4Questions, guitarS1L4Questions_2 } from "./questions/guitarS1Questions";
 
 export default function GuitarS1L4({ title }: LessonComponent) {
-    const { openQuestionModal, closeQuestionModal, showQuestionModal } = useQuestionModal()
-
+    const questionModal = useQuestionModal()
+    const questionModal2 = useQuestionModal()
     return (
         <LessonContainer>
             <LessonTitle title={title} />
             <LessonBox>
-                <LessonParagraph text="Estos son algunos ejemplo de como se reflejan los semitonos en la guitarra" />
-                <LessonDivider>
-                    <Box sx={{ ...Hcontainer() }}>
-                        <GuitarNeck
-                            neckRange={[0, 5]}
-                            label="1 semitonos desde Do"
-                            fretMarkers={[
-                                { position: [5, 3], text: "Do" },
-                                { position: [5, 4], text: "Do#" }
-                            ]}
-                            highlight={["Do#"]}
-                        />
-                        <GuitarNeck
-                            neckRange={[0, 5]}
-                            label="2 semitonos desde Do"
-                            fretMarkers={[
-                                { position: [5, 3], text: "Do" },
-                                { position: [5, 5], text: "Re" }
-                            ]}
-                            highlight={["Re"]}
-                        />
-                        <GuitarNeck
-                            neckRange={[0, 5]}
-                            label="3 semitonos desde Fa"
-                            fretMarkers={[
-                                { position: [6, 1], text: "Fa" },
-                                { position: [6, 4], text: "Sol#" }
-                            ]}
-                            highlight={["Sol#"]}
-                        />
-                        <GuitarNeck
-                            neckRange={[0, 5]}
-                            label="5 semitonos desde Mi"
-                            fretMarkers={[
-                                { position: [6, 0], text: "Mi" },
-                                { position: [6, 5], text: "La" }
-                            ]}
-                            highlight={["La"]}
-                        />
-                    </Box>
-                </LessonDivider>
-            </LessonBox>
-            <LessonBox>
-                <LessonSubtitle text="Usar las demas cuerdas" />
-                <LessonAlert text="Es estrictamente necesario poder ubicar las notas en el mastil de la guitarra, almenos en los primeros trastes de cada cuerda" />
-                <LessonParagraph text="para encontrar la mismas distancia pero en otra cuerda seguiremos unos cuantos pasos" />
-                <LessonDivider>
-                    <LessonListItem text="calcular la distancia (por ejemplo 5 semitonos desde la nota Mi)" />
-                    <LessonListItem text="mirar a que nota corresponde el traste donde cayo el calculo (en este caso seria La)" />
-                    <LessonListItem text="buscar esa nota pero en otra cuerda" />
-                    <LessonSubtitle text="Ejemplos:" />
-                    <Box sx={{ ...Hcontainer() }}>
-                        <GuitarNeck
-                            label="5 semitonos desde Mi"
-                            neckRange={[0, 5]}
-                            highlight={["La"]}
-                            fretMarkers={[
-                                { position: [6, 0], text: "Mi" },
-                                { position: [6, 5], text: "La" }
-                            ]}
-                        />
-                        <GuitarNeck
-                            label="5 semitonos desde Mi pero en la cuerda 5"
-                            neckRange={[0, 5]}
-                            highlight={["La"]}
-                            fretMarkers={[
-                                { position: [6, 0], text: "Mi" },
-                                { position: [5, 0], text: "La" }
-                            ]}
-                        />
-                        <GuitarNeck
-                            label="3 semitonos desde Fa#"
-                            neckRange={[0, 5]}
-                            highlight={["La"]}
-                            fretMarkers={[
-                                { position: [6, 2], text: "Fa#" },
-                                { position: [6, 5], text: "La" }
-                            ]}
-                        />
-                        <GuitarNeck
-                            label="3 semitonos desde Fa# pero desde otra cuerda"
-                            neckRange={[0, 5]}
-                            highlight={["La"]}
-                            fretMarkers={[
-                                { position: [6, 2], text: "Fa#" },
-                                { position: [5, 0], text: "La" }
-                            ]}
-                        />
-                    </Box>
-                </LessonDivider>
+                <LessonSubtitle text="Notas musicales en el mastil" />
+                <LessonParagraph text="En un inicio es recomendable poder ubicar las notas en las cuerdas al aire y por lo menos la mayoria de los primeros trastes, en especial en las cuerdas graves, algo asi:" />
+                <GuitarNeck
+                    fretMarkers={[
+                        { position: [6, 0], text: "Mi" },
+                        { position: [6, 1], text: "Fa" },
+                        { position: [6, 3], text: "Sol" },
+                        { position: [6, 5], text: "La" },
+                        { position: [6, 7], text: "Si" },
+                        { position: [6, 8], text: "Do" },
+                        { position: [5, 0], text: "La" },
+                        { position: [5, 2], text: "Si" },
+                        { position: [5, 3], text: "Do" },
+                        { position: [5, 5], text: "Re" },
+                        { position: [5, 7], text: "Mi" },
+                        { position: [4, 0], text: "Re" },
+                        { position: [4, 2], text: "Mi" },
+                        { position: [3, 0], text: "Sol" },
+                        { position: [3, 2], text: "La" },
+                        { position: [2, 0], text: "Si" },
+                        { position: [2, 1], text: "Do" },
+                        { position: [1, 0], text: "MI" },
+                        { position: [1, 1], text: "Fa" },
+                        { position: [1, 3], text: "Sol" },
+                        { position: [1, 5], text: "La" },
+                        { position: [1, 7], text: "Si" },
+                        { position: [1, 8], text: "Do" },
+                    ]}
+                />
+                <LessonParagraph text="No es necesario gastar memoria en memorizar todo, aqui algunos consejos:" />
+                <LessonListItem text="Fijate que las notas de la ultima cuerda son las mismas que las de la primera cuerda" />
+                <LessonListItem text="Si conoces al menos una nota de una cuerda, ya deberia poder conocer el resto, aparecen en orden, solo recuerda que entre cada nota hay 2 semitonos excepto entre Mi-Fa y Si-Do " />
+                <LessonParagraph text="Si entendiste las lecciones anteriores deberias saber que los espacios pueden señalarse con sostenidos o bemoles, como quieras:" />
+                <GuitarNeck
+                    highlight={["Solb", "Lab", "Sib"]}
+                    fretMarkers={[
+                        { position: [6, 0], text: "Mi" },
+                        { position: [6, 1], text: "Fa" },
+                        { position: [6, 2], text: "Solb" },
+                        { position: [6, 3], text: "Sol" },
+                        { position: [6, 4], text: "Lab" },
+                        { position: [6, 5], text: "La" },
+                        { position: [6, 6], text: "Sib" },
+                        { position: [6, 7], text: "Si" },
+                        { position: [6, 8], text: "Do" },
+                    ]}
+                />
             </LessonBox>
             <LessonBox>
                 <QuestionModal
-                    open={showQuestionModal}
-                    onClose={closeQuestionModal}
-                    questions={guitarS1L4Questions}
+                    open={questionModal2.showQuestionModal}
+                    onClose={questionModal2.closeQuestionModal}
+                    questions={guitarS1L4Questions_2}
                 />
-                <QuestionModalButton onClick={openQuestionModal}>Comenzar practica</QuestionModalButton>
+                <QuestionModalButton onClick={questionModal2.openQuestionModal}>
+                    Inciar practica : Encontrar notas en el mastil
+                </QuestionModalButton>
+                <QuestionModal
+                    open={questionModal.showQuestionModal}
+                    onClose={questionModal.closeQuestionModal}
+                    questions={guitarS1L4Questions} />
+                <QuestionModalButton onClick={questionModal.openQuestionModal}>
+                    Inciar Practica : Encontrar notas a partir de otras
+                </QuestionModalButton>
             </LessonBox>
         </LessonContainer>
     )

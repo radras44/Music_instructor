@@ -1,11 +1,14 @@
 import { GuitarNeck } from "@/components/lessonComponents/guitar";
 import { LessonAlert, LessonBox, LessonContainer, LessonDivider, LessonListItem, LessonParagraph, LessonSubtitle, LessonTitle } from "@/components/lessonComponents/lessonComponents";
 import { LessonIndicator } from "@/components/lessonComponents/lessonIndicator";
+import QuestionModal, { QuestionModalButton, useQuestionModal } from "@/components/lessonComponents/questionModal";
 import { LessonComponent } from "@/interfaces/baseInterfaces";
 import { Hcontainer } from "@/styles/styles";
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { guitarS2L6Questions_triads } from "./questions/guitarS2Questions";
 
 export default function GuitarS2L6({ title }: LessonComponent) {
+    const questionModal_triads = useQuestionModal()
     const intervals = [
         { name: "Tercera mayor", semitones: 4, nomenclature: "3" },
         { name: "Tercera menor", semitones: 3, nomenclature: "b3" }
@@ -37,7 +40,7 @@ export default function GuitarS2L6({ title }: LessonComponent) {
                         </Table>
                     </TableContainer>
                 </LessonDivider>
-                <LessonParagraph text="Todos los intervalos que sean así, en plan, uno mayor y otro menor, no es necesario que memorices el intervalo menor como tal, porque con conocer el intervalo mayor ya puedes ubicar el menor, después de todo, está solo a un semitono detrás" />
+                <LessonParagraph text="En todos los intervalos del estilo 'mayor-menor', no es necesario que memorices el intervalo menor como tal, porque con conocer el intervalo mayor ya puedes ubicar el menor, después de todo, está solo a un semitono mas grave." />
                 <Box sx={{ ...Hcontainer() }}>
                     <GuitarNeck
                         label="3ra mayor en Do"
@@ -79,9 +82,9 @@ export default function GuitarS2L6({ title }: LessonComponent) {
                         ]}
                     />
                 </Box>
-                <LessonAlert severity="warning" text="Ten en cuenta que en esta segunda posición varía un poco por la imperfección entre la afinación de las cuerdas 2 y 3, para más información vuelve a visitar la lección anterior." />
+                <LessonAlert severity="warning" text="Ten en cuenta que en este ultimo ejemplo varía un poco la disposicion debido a la imperfección entre la afinación de las cuerdas 2 y 3, para más información vuelve a visitar la lección anterior." />
     
-                <LessonParagraph text="Para encontrar la '3ra menor' solo bajamos la 3ra y le bajamos un semitono, o sea, 3 => b3." />
+                <LessonParagraph text="Para encontrar la 3ra menor solo hay que bajar un semitono una tercera mayor, basandose en las posiciones mostradas anteiorment, estos serian los resultados:" />
                 <Box sx={{ ...Hcontainer() }}>
                     <GuitarNeck
                         label="3ra menor en Do"
@@ -102,7 +105,6 @@ export default function GuitarS2L6({ title }: LessonComponent) {
                         ]}
                     />
                 </Box>
-                <LessonParagraph text="Otra posición podría ser usar una 3ra menor pero más aguda" />
                 <Box sx={{ ...Hcontainer() }}>
                     <GuitarNeck
                         label="3ra menor en Do"
@@ -226,6 +228,16 @@ export default function GuitarS2L6({ title }: LessonComponent) {
                         rootNote="Do"
                     />
                 </Box>
+                <QuestionModal
+                    open={questionModal_triads.showQuestionModal}
+                    onClose={questionModal_triads.closeQuestionModal}
+                    questions={guitarS2L6Questions_triads}
+                />
+                <QuestionModalButton
+                onClick={questionModal_triads.openQuestionModal}
+                >
+                    Iniciar practica: Triadas menor y mayores 
+                </QuestionModalButton>
             </LessonBox>
         </LessonContainer>
     )    

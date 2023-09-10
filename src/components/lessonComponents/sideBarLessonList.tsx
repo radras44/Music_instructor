@@ -1,16 +1,17 @@
-import { TutorialSection } from "@/interfaces/baseInterfaces"
+import { CourseSection} from "@/interfaces/baseInterfaces"
 import { saveLessonId, getLessonId } from "@/utils/lessonUtils"
 import { ExpandLess, ExpandMore } from "@mui/icons-material"
 import { Box, List, ListItemButton, ListItemText, Collapse, Typography } from "@mui/material"
 import { useState } from "react"
 interface sideBarLessonListProps {
-    lessonSections: TutorialSection[]
+    lessonSections:CourseSection[]
     setCurrentLesson: React.Dispatch<React.SetStateAction<any>>
     initialNameValue?: string
     courseName: "guitar" | "piano"
+    onSelect? : Function
 }
 
-export function SideBarLessonList({ lessonSections, setCurrentLesson, initialNameValue, courseName }: sideBarLessonListProps) {
+export function SideBarLessonList({ lessonSections, setCurrentLesson, initialNameValue, courseName,onSelect }: sideBarLessonListProps) {
     const [openSection, setOpenSection] = useState<boolean[]>(Array(lessonSections.length).fill(true))
     const [currentSelect, setCurrentSelect] = useState<string>(initialNameValue || "")
     function handleOpenSection(index: number) {
@@ -27,7 +28,9 @@ export function SideBarLessonList({ lessonSections, setCurrentLesson, initialNam
     return (
         <Box sx={{
             position: "sticky",
-            top: 0,
+            top: 40,
+            maxHeight : "90vh",
+            overflow : "auto"
         }}>
             {lessonSections.map((section, sectionIdx) => (
                 <List key={sectionIdx}>
@@ -48,6 +51,9 @@ export function SideBarLessonList({ lessonSections, setCurrentLesson, initialNam
                                         setCurrentLesson(lesson)
                                         handleSelect(e, lesson.name)
                                         window.scrollTo(0,0)
+                                        if(onSelect){
+                                            onSelect()
+                                        }
                                     }
                                 }}
                                 sx={{

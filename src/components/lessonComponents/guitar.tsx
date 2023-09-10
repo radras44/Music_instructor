@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
 import guitarStyles from "../../styles/guitar.module.css"
-import { Fade } from "@mui/material"
 
 export interface FretMarkerPosition {
     position: [number, number]
@@ -160,7 +159,7 @@ export function GuitarNeck({
                                 neckRange[0] == 0 && fretIdx == 0 ?
                                     `${guitarStyles.fret} ${guitarStyles["string-open"]} `
                                     :
-                                    `${guitarStyles.fret} ${guitarStyles[`string-${String(stringIdx + 1)}`]}`
+                                    `${guitarStyles.fret} ${guitarStyles[`string-fret`]}`
                             }>
                                 {
                                     stringIdx == 0 && (fretIdx + neckRange[0]) !== 0 ?

@@ -16,21 +16,34 @@ export const Hcontainer = () => {
         display:"flex",
         flexDirection : "row",
         alignItems:"center",
-        flexWrap:"wrap"
+        flexWrap : "wrap"
     }
     return sx
 }
 
 export const modalContainer = () => {
     const sx : SxProps = {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%'
+        maxWidth: "90vw",
+        maxHeight: "90vh",
+        ...Vcontainer(),
+        alignItems: "center",
+        p: 3
+    }
+    return sx
+}
+export const modal = () => {
+    const sx : SxProps = {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh"
+    }
+    return sx
+}
+
+export const SubItemSx = () => {
+    const sx : SxProps = {
+        marginLeft : 3
     }
     return sx
 }

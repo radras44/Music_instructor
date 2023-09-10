@@ -1,4 +1,3 @@
-import {  CssBaseline, ThemeProvider} from '@mui/material'
 import '../styles/globals.css'
 import { Inter } from 'next/font/google'
 

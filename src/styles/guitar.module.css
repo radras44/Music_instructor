@@ -10,6 +10,7 @@
     display: flex;
     flex-direction: row;
     height: 40px;
+    max-width: 100% ;
 }
 
 .neck-label {
@@ -48,62 +49,7 @@
     height: 0.05em;
 }
 
-.string-1::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    background-color: #888; 
-    transform: translateY(-50%);
-    z-index: 50;
-    height: 0.05em;
-}
-.string-2::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    background-color: #888; 
-    transform: translateY(-50%);
-    z-index: 50;
-    height: 0.05em;  
-}
-.string-3::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    background-color: #888; 
-    transform: translateY(-50%);
-    z-index: 50;
-    height: 0.05em; 
-}
-.string-4::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    background-color: #888; 
-    transform: translateY(-50%);
-    z-index: 50;
-    height: 0.1em;
-}
-.string-5::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    background-color: #888; 
-    transform: translateY(-50%);
-    z-index: 50;
-    height: 0.1em;
-}
-.string-6::before {
+.string-fret::before {
     content: "";
     position: absolute;
     top: 50%;
@@ -147,7 +93,7 @@
 }
 
 .fretMarker-added {
-    background-color: var(--yellow);
+    background-color: var(--green);
     color: #111111;
     font-weight: 800;
 }

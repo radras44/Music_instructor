@@ -4,10 +4,14 @@ import { LessonComponent } from "@/interfaces/baseInterfaces";
 import { LessonIndicator } from "@/components/lessonComponents/lessonIndicator";
 import { Hcontainer } from "@/styles/styles";
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import QuestionModal, { QuestionModalButton, useQuestionModal } from "@/components/lessonComponents/questionModal";
+import { guitarS2L5Questions } from "./questions/guitarS2Questions";
 
 const notes = ["A","B","C","D","E","F","G"]
 const notesInSpanish = ["La","Si","Do","Re","Mi","Fa","Sol"]
+const questions = guitarS2L5Questions
 export default function GuitarS2L5({ title }: LessonComponent) {
+    const questionModal = useQuestionModal()
     return (
         <LessonContainer>
             <LessonTitle title={title} />
@@ -82,6 +86,14 @@ export default function GuitarS2L5({ title }: LessonComponent) {
                         </Table>
                     </TableContainer>
                 </LessonDivider>
+                <QuestionModal
+                open={questionModal.showQuestionModal}
+                onClose={questionModal.closeQuestionModal}
+                questions={questions}
+                />
+                <QuestionModalButton onClick={questionModal.openQuestionModal}>
+                    Iniciar practica: Cifrado americano
+                </QuestionModalButton>
             </LessonBox>
         </LessonContainer>
     )

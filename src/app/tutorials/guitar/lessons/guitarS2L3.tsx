@@ -1,11 +1,14 @@
 import { GuitarNeck } from "@/components/lessonComponents/guitar";
 import { LessonAlert, LessonBox, LessonContainer, LessonListItem, LessonParagraph, LessonSubtitle, LessonTitle } from "@/components/lessonComponents/lessonComponents";
+import QuestionModal, { QuestionModalButton, useQuestionModal } from "@/components/lessonComponents/questionModal";
 import { LessonComponent } from "@/interfaces/baseInterfaces";
 import { Hcontainer, Vcontainer } from "@/styles/styles";
 import { Box } from "@mui/material";
-import { text } from "stream/consumers";
+import { guitarS2L3Questions_5, guitarS2L3Questions_8 } from "./questions/guitarS2Questions";
 
 export default function GuitarS2L3({ title }: LessonComponent) {
+    const questionModal8 = useQuestionModal()
+    const questionmodal5 = useQuestionModal()
     return (
         <LessonContainer>
             <LessonTitle title={title} />
@@ -77,9 +80,15 @@ export default function GuitarS2L3({ title }: LessonComponent) {
                         ]}
                     />
                 </Box>
-    
+                <QuestionModal
+                open={questionModal8.showQuestionModal}
+                onClose={questionModal8.closeQuestionModal}
+                questions={guitarS2L3Questions_8}
+                />
+                <QuestionModalButton 
+                onClick={questionModal8.openQuestionModal}
+                >Iniciar practica de octavas</QuestionModalButton>
             </LessonBox>
-    
             <LessonBox>
                 <LessonSubtitle text="5ta justa" />
                 <LessonListItem text="Su nomenclatura es '5'" />
@@ -145,6 +154,14 @@ export default function GuitarS2L3({ title }: LessonComponent) {
                         ]}
                     />
                 </Box>
+                <QuestionModal
+                open={questionmodal5.showQuestionModal}
+                onClose={questionmodal5.closeQuestionModal}
+                questions={guitarS2L3Questions_5}
+                />
+                <QuestionModalButton
+                onClick={questionmodal5.openQuestionModal}
+                >Iniciar practica de quintas</QuestionModalButton>
             </LessonBox>
         </LessonContainer>
     );    

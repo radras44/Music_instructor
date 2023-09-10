@@ -1,22 +1,27 @@
-import { Box, Button, ButtonProps, Card, Modal, Typography } from "@mui/material";
+import { Box, Button, ButtonProps, Card, Fade, Modal } from "@mui/material";
 import { useEffect, useState } from "react";
 import { FretMarkerPosition, GuitarNeck } from "./guitar";
-import { NextPlan, OpenInFull, Widgets } from "@mui/icons-material";
-import { defaultMargin } from "@/styles/styles";
-import { LessonSubtitle, LessonTitle } from "./lessonComponents";
+import { Check, Clear, HorizontalRule, OpenInFull } from "@mui/icons-material";
+import { Hcontainer, defaultMargin, modal, modalContainer } from "@/styles/styles";
+import { LessonParagraph, LessonSubtitle, LessonTitle } from "./lessonComponents";
 
-export function QuestionModalButton({ children, onClick }: ButtonProps) {
+export function QuestionModalButton({ onClick,children }: ButtonProps) {
     return (
         <Box sx={{
             display: "flex",
             justifyContent: "center",
             flexDirection: "row",
             mt: defaultMargin,
-            mb: defaultMargin
+            mb: defaultMargin,
+            width: "100%",
         }}>
             <Button startIcon={<OpenInFull />} onClick={onClick} variant="text" color="success" sx={{
                 fontWeight: 600,
-            }}>{children}</Button>
+                minWidth: "100%",
+                p: 2
+            }}>{
+                children ? children : "Inicar practica"
+            }</Button>
         </Box>
     )
 }
@@ -30,7 +35,9 @@ export function useQuestionModal() {
 
 export interface neckQuestion {
     question: string,
-    solutions: FretMarkerPosition[][]
+    solutions: FretMarkerPosition[][],
+    defaultMarkers?: FretMarkerPosition[]
+    verificationMethod? : (response : FretMarkerPosition[] ,solutions : FretMarkerPosition[][]) => boolean
 }
 
 interface QuestionModalProps {
@@ -45,6 +52,8 @@ interface QuestionParams {
     finalized: boolean
 }
 
+const contentFadeTime = 300
+
 export default function QuestionModal({ open, onClose, questions }: QuestionModalProps) {
     const [testParams, setTestParams] = useState<QuestionParams>({
         checkResult: null,
@@ -53,6 +62,11 @@ export default function QuestionModal({ open, onClose, questions }: QuestionModa
     })
     const [currentQuestion, setCurrentQuestion] = useState<neckQuestion>(questions[0])
     const [selectedFrets, setSelectedFrets] = useState<FretMarkerPosition[]>([])
+    const [showNeck, setShowNeck] = useState<boolean>(true)
+
+    //fades
+    const [iconFade, setIconFade] = useState<boolean>(true)
+    const [contentFade, setContentFade] = useState<boolean>(true)
 
     function nextQuestion() {
         if (testParams.checkResult === true) {
@@ -63,6 +77,7 @@ export default function QuestionModal({ open, onClose, questions }: QuestionModa
                     questionNumber: newQuestionNumber,
                     checkResult: null,
                 }));
+                //ejecutar fade
                 setCurrentQuestion(questions[newQuestionNumber])
                 setSelectedFrets([])
             } else {
@@ -72,108 +87,124 @@ export default function QuestionModal({ open, onClose, questions }: QuestionModa
     }
 
     function check() {
-        if (selectedFrets.length === 0) {
-            // No hacer nada si no hay elementos
-            return;
-        }
-    
         const selectedFretString = JSON.stringify(selectedFrets);
-    
-        const result = currentQuestion.solutions.some((solution: FretMarkerPosition[]) => {
+
+        let result = currentQuestion.solutions.some((solution: FretMarkerPosition[]) => {
             return selectedFretString === JSON.stringify(solution);
         });
-    
+        if(currentQuestion.verificationMethod){
+            result = currentQuestion.verificationMethod(selectedFrets,currentQuestion.solutions)
+        }
+
+        setIconFade(false);
+        setTimeout(() => {
+            setIconFade(true);
+        }, 10);
+
         setTestParams({
             ...testParams,
             checkResult: result,
         });
     }
 
-    return (
-        <Modal open={open} onClose={onClose} sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "100vh"
-        }}>
-            {
-                testParams.finalized === true ?
-                    //renderizar mensaje de finalizacion
-                    <Card
-                        elevation={5}
-                        sx={{
-                            maxWidth: "90vw",
-                            maxHeight: "90vh",
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            p: 3
-                        }}>
-                        <LessonTitle title={"Cuestionario finalizado"} />
-                        <Button onClick={() => { onClose({}, "backdropClick") }}>Cerrar</Button>
-                    </Card>
-                    :
-                    // renderizar cuestionario
-                    <Card sx={{
-                        maxWidth: "90vw",
-                        maxHeight: "90vh",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        p: 2
-                    }}>
+    useEffect(() => {
+        if (testParams.checkResult === true) {
+            const animateTransition = async () => {
+                await new Promise((resolve) => setTimeout(resolve, 400))
+                setContentFade(false);
+
+                await new Promise((resolve) => setTimeout(resolve, contentFadeTime));
+
+                setShowNeck(false);
+                nextQuestion();
+
+                await new Promise((resolve) => setTimeout(resolve, 100));
+
+                setShowNeck(true);
+                setContentFade(true);
+            };
+
+            animateTransition();
+        }
+    }, [testParams.checkResult]);
+
+    if (questions.length > 0) {
+        return (
+            <Modal open={open} onClose={onClose} sx={{ ...modal() }}>
+                <Box>
+                    <Fade in={contentFade} timeout={contentFadeTime}>
                         {
-                            <Box>
-                                <LessonSubtitle text={currentQuestion.question} />
-                            </Box>
+
+                            testParams.finalized === true ?
+                                <Card
+                                    elevation={5}
+                                    sx={{ ...modalContainer() }}>
+                                    <LessonSubtitle text={"Practica finalizada"} />
+                                    <Button onClick={() => { onClose({}, "backdropClick") }}>Cerrar</Button>
+                                </Card>
+                                :
+                                // renderizar cuestionario
+                                <Card elevation={5}
+                                    sx={{ ...modalContainer() }}
+                                >
+                                    <Box>
+                                        <LessonParagraph text={currentQuestion.question} />
+                                    </Box>
+                                    <Box>
+                                        {
+                                            showNeck ?
+
+                                                <GuitarNeck
+                                                    allowAdd={true}
+                                                    setWhenAddMarker={setSelectedFrets}
+                                                    fretMarkers={
+                                                        currentQuestion.defaultMarkers ?
+                                                            currentQuestion.defaultMarkers : []
+                                                    }
+                                                />
+
+                                                : null
+                                        }
+                                    </Box>
+                                    <Box sx={{
+                                        ...Hcontainer(),
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        width: "100%",
+                                    }}>
+                                        <Button
+                                            sx={{
+                                                m: 1,
+                                                fontSize: 18,
+                                                pl: 4,
+                                                pr: 4,
+                                            }}
+                                            color={
+                                                testParams.checkResult === null ? "primary" :
+                                                    testParams.checkResult === true ? "success" : "error"
+                                            }
+                                            variant="text"
+                                            onClick={check}>
+                                            Evaluar
+                                        </Button>
+                                        {/* check State icon */}
+                                        <Fade in={iconFade} timeout={500}>
+                                            {
+                                                testParams.checkResult === null ? <HorizontalRule fontSize="large" /> :
+                                                    testParams.checkResult === true ? <Check fontSize="large" color="success" /> :
+                                                        <Clear fontSize="large" color="error" />
+                                            }
+                                        </Fade>
+                                    </Box>
+                                </Card>
                         }
-                        <Box>
-                            <GuitarNeck
-                                allowAdd={true}
-                                setWhenAddMarker={setSelectedFrets}
-                                resetEmit={currentQuestion}
-                            />
-                        </Box>
-                        <Box>
-                            <Button
-                            sx={{
-                                m:defaultMargin,
-                                fontSize : 18,
-                                pl :4,
-                                pr : 4
-                                
-                            }}
-                            color={
-                                testParams.checkResult === null ?
-                                "primary" :
-                                testParams.checkResult === true ?
-                                "success" :
-                                "error"
-                            }
-                                variant="outlined"
-                                onClick={check}>
-                                Evaluar
-                            </Button>
-                            <Button
-                            color="success"
-                                 sx={{
-                                    m:defaultMargin,
-                                    fontSize : 18,
-                                    pl :4,
-                                    pr : 4,
-                                    fontWeight : 600,
-                                    backgroundColor : "success.main"
-                                }}
-                                startIcon ={<NextPlan/>}
-                                variant="contained"
-                                disabled={testParams.checkResult === true ? false : true}
-                                onClick={nextQuestion}>
-                                Siguiente
-                            </Button>
-                        </Box>
-                    </Card>
-            }
-        </Modal>
-    )
+                    </Fade>
+                </Box >
+            </Modal >
+        )
+    } else {
+        return null
+    }
+
 }
 

@@ -1,10 +1,15 @@
 import { GuitarNeck } from "@/components/lessonComponents/guitar";
 import { LessonBox, LessonContainer, LessonDivider, LessonListItem, LessonParagraph, LessonSubtitle, LessonTitle } from "@/components/lessonComponents/lessonComponents";
+import QuestionModal, { QuestionModalButton, neckQuestion, useQuestionModal } from "@/components/lessonComponents/questionModal";
 import { LessonComponent } from "@/interfaces/baseInterfaces";
 import { Hcontainer } from "@/styles/styles";
 import { Box } from "@mui/material";
+import { guitarS1L1Questions } from "./questions/guitarS1Questions";
+
+const questions : neckQuestion[] = guitarS1L1Questions
 
 export default function GuitarS1L1({ title }: LessonComponent) {
+    const questionModal = useQuestionModal()
     return (
         <LessonContainer>
             <LessonTitle title={title} />
@@ -71,6 +76,13 @@ export default function GuitarS1L1({ title }: LessonComponent) {
                         />
                     </Box>
                 </LessonDivider>
+                <QuestionModal 
+                questions={questions} 
+                open={questionModal.showQuestionModal} 
+                onClose={questionModal.closeQuestionModal}/>
+                <QuestionModalButton onClick={questionModal.openQuestionModal}>
+                    Iniciar practica : Señalar en el mastil
+                </QuestionModalButton>
             </LessonBox>
         </LessonContainer>
     )
