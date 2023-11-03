@@ -1,13 +1,13 @@
 import { GuitarNeck } from "@/components/lessonComponents/guitar";
-import { LessonAlert, LessonBox, LessonContainer, LessonDivider, LessonListItem, LessonParagraph, LessonSubtitle, LessonTitle } from "@/components/lessonComponents/lessonComponents";
-import { LessonIndicator } from "@/components/lessonComponents/lessonIndicator";
+import { LessonAlert, LessonBox, LessonContainer, LessonDivider, LessonListItem, LessonParagraph, LessonSubtitle, LessonTitle } from "@/components/lessonComponents/widgets";
+import { LessonIndicator } from "@/components/lessonComponents/indicator";
 import QuestionModal, { QuestionModalButton, useQuestionModal } from "@/components/lessonComponents/questionModal";
 import { LessonComponent } from "@/interfaces/baseInterfaces";
 import { Hcontainer } from "@/styles/styles";
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
-import { guitarS2L6Questions_triads } from "./questions/guitarS2Questions";
+import { guitarS2L6Questions_triads } from "../questions/guitarS2Questions";
 
-export default function GuitarS2L6({ title }: LessonComponent) {
+export default function ({ title }: LessonComponent) {
     const questionModal_triads = useQuestionModal()
     const intervals = [
         { name: "Tercera mayor", semitones: 4, nomenclature: "3" },

@@ -1,12 +1,12 @@
 import { GuitarNeck } from "@/components/lessonComponents/guitar";
-import { LessonAlert, LessonBox, LessonContainer, LessonListItem, LessonParagraph, LessonSubtitle, LessonTitle } from "@/components/lessonComponents/lessonComponents";
+import { LessonAlert, LessonBox, LessonContainer, LessonListItem, LessonParagraph, LessonSubtitle, LessonTitle } from "@/components/lessonComponents/widgets";
 import QuestionModal, { QuestionModalButton, useQuestionModal } from "@/components/lessonComponents/questionModal";
 import { LessonComponent } from "@/interfaces/baseInterfaces";
 import { Hcontainer, Vcontainer } from "@/styles/styles";
 import { Box } from "@mui/material";
-import { guitarS2L3Questions_5, guitarS2L3Questions_8 } from "./questions/guitarS2Questions";
+import { guitarS2L3Questions_5, guitarS2L3Questions_8 } from "../questions/guitarS2Questions";
 
-export default function GuitarS2L3({ title }: LessonComponent) {
+export default function ({ title }: LessonComponent) {
     const questionModal8 = useQuestionModal()
     const questionmodal5 = useQuestionModal()
     return (

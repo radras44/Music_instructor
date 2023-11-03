@@ -22,7 +22,7 @@
 
 .fret {
     position: relative;
-    width: 65px;
+    width: 55px;
     height: 100%;
     display: flex;
     flex-direction: column;

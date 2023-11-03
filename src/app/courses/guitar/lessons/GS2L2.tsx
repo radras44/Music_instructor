@@ -1,4 +1,4 @@
-import { LessonContainer, LessonDivider, LessonParagraph, LessonBox, LessonTitle, LessonAlert } from "@/components/lessonComponents/lessonComponents";
+import { LessonContainer, LessonDivider, LessonParagraph, LessonBox, LessonTitle, LessonAlert } from "@/components/lessonComponents/widgets";
 import { LessonComponent } from "@/interfaces/baseInterfaces";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 
@@ -16,7 +16,7 @@ export const intervals = [
     { name: "7ma mayor", semitone: "11", nomenclature: "7" },
     { name: "8va justa (distancia entre fundamental y fundamental)", semitone: "12", nomenclature: "8" },
 ]
-export default function GuitarS2L2({ title }: LessonComponent) {
+export default function ({ title }: LessonComponent) {
     return (
         <LessonContainer>
             <LessonTitle title={title} />

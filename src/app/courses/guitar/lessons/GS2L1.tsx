@@ -1,10 +1,10 @@
 import { GuitarNeck } from "@/components/lessonComponents/guitar";
-import { LessonAlert, LessonBox, LessonContainer, LessonListItem, LessonParagraph, LessonTitle } from "@/components/lessonComponents/lessonComponents";
+import { LessonAlert, LessonBox, LessonContainer, LessonListItem, LessonParagraph, LessonTitle } from "@/components/lessonComponents/widgets";
 import { LessonComponent } from "@/interfaces/baseInterfaces";
 import { Hcontainer } from "@/styles/styles";
 import { Box } from "@mui/material";
 
-export default function GuitarS2L2({ title }: LessonComponent) {
+export default function ({ title }: LessonComponent) {
     return (
         <LessonContainer>
             <LessonTitle title={title} />

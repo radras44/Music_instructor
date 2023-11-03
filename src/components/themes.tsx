@@ -1,4 +1,4 @@
-import { Container, ContainerProps, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import {Box, Container, ContainerProps, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 
 export const darkTheme = createTheme({
     palette: {
@@ -8,16 +8,11 @@ export const darkTheme = createTheme({
 
 interface ThemeContainerProps extends ContainerProps { }
 
-export default function ThemeContainer({ children, maxWidth, sx }: ThemeContainerProps) {
+export default function ThemeContainer({ children,maxWidth}: ThemeContainerProps) {
     return (
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
-            <Container maxWidth={maxWidth} sx={{    
-                mt: 5,
-                display : "flex",
-                justifyContent:"center",
-                alignItems : "center"
-            }}>
+            <Container maxWidth={maxWidth}>
                 {children}
             </Container>
         </ThemeProvider>

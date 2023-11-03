@@ -1,17 +1,18 @@
 export interface CourseLesson {
-    lessonNumber : number
+    id : number
     name : string
     description : string
     component : JSX.Element
 }
 
 export interface CourseSection {
-    sectionNumber : number
+    id : number
     name : string,
     lessons : CourseLesson[]
 }
 
 export interface Course {
+    pathName : string
     name : string,
     sections : CourseSection[]
 }

@@ -1,26 +1,31 @@
 "use client"
-import { OListItem } from "@/components/listComponentes";
-import { Course } from "@/interfaces/baseInterfaces";
+
+import { Course, CourseSection } from "@/interfaces/baseInterfaces";
 import { Box, Collapse, Grid, List, ListItemButton, Typography } from "@mui/material";
 import { Book } from "@mui/icons-material";
-import { getLessonId } from "@/utils/lessonUtils";
 import ThemeContainer from "@/components/themes";
-import { guitarSections } from "./tutorials/guitar/lessons/guitarSections";
+import guitarCourse from "./courses/guitar/Register";
 import { useState } from "react";
-import { SubItemSx } from "@/styles/styles";
+import {LessonLink} from "@/components/lessonComponents/link";
+import { getLessonRoute } from "@/utils/routerUtils";
 
 const courses: Course[] = [
-    guitarSections
+    guitarCourse
 ]
 
 export default function GuitarTutorials() {
-
+    //generate a boolean array to control the collapses (expandable content
     const [collapses, setCollapses] = useState<any[]>(() => {
-        return courses.map(course => {
+        //course collapse controls
+        return courses.map((course: Course) => {
             return {
-                collapse: false, sections: course.sections.map(section => {
+                collapse: false,
+                //section collapse controls
+                sections: course.sections.map(section => {
                     return {
-                        collapse: false, lessons: section.lessons.map(lesson => {
+                        collapse: false,
+                        //lesson collapse controls 
+                        lessons: section.lessons.map(lesson => {
                             return { collapse: false }
                         })
                     }
@@ -51,6 +56,7 @@ export default function GuitarTutorials() {
         <ThemeContainer maxWidth="lg">
             <Grid container>
                 <Grid item xs={12}>
+                    {/* list of courses */}
                     <List>
                         {courses.map((course, courseIdx) => (
                             <Box key={courseIdx}>
@@ -59,36 +65,25 @@ export default function GuitarTutorials() {
                                 }}>
                                     <Typography>{course.name}</Typography>
                                 </ListItemButton>
+                                {/*list of sections */}
                                 <Collapse in={collapses[courseIdx].collapse === true}>
                                     {
                                         course.sections.map((section, sectionIdx) => (
                                             <Box
                                                 key={sectionIdx}
-                                                sx={{ ...SubItemSx() }}
+                                                sx={{ ml: 3 }}
                                             >
                                                 <ListItemButton onClick={() => {
                                                     setSectionCollapse(courseIdx, sectionIdx)
                                                 }}>
                                                     <Typography>{section.name}</Typography>
                                                 </ListItemButton>
-                                                <Collapse in={collapses[courseIdx].sections[sectionIdx].collapse === true}>
-                                                    {
-                                                        section.lessons.map((lesson, lessonIdx) => (
-                                                            <Box
-                                                                key={lessonIdx}
-                                                                sx={{ ...SubItemSx() }}
-                                                            >
-                                                                <OListItem
-                                                                    lessonId={{ course: "guitar", lessonId: getLessonId(section.sectionNumber, lesson.lessonNumber) }}
-                                                                    icon={<Book />}
-                                                                    link={`/tutorials/guitar/lessons`}
-                                                                    title={lesson.name}
-                                                                    description={lesson.description}
-                                                                />
-                                                            </Box>
-                                                        ))
-                                                    }
-                                                </Collapse>
+                                                {/*list of lessons */}
+                                                <LessonCollapse
+                                                    course={course}
+                                                    section={section}
+                                                    collapseState={collapses[courseIdx].sections[sectionIdx].collapse}
+                                                />
                                             </Box>
                                         ))
                                     }
@@ -99,5 +94,27 @@ export default function GuitarTutorials() {
                 </Grid>
             </Grid>
         </ThemeContainer>
+    )
+}
+
+export function LessonCollapse({ section, collapseState,course }: { section: CourseSection, collapseState: boolean,course : Course }) {
+    return (
+        <Collapse in={collapseState === true}>
+            {
+                section.lessons.map((lesson, lessonIdx) => (
+                    <Box
+                        key={lessonIdx}
+                        sx={{ ml: 3 }}
+                    >
+                        <LessonLink
+                            icon={<Book />}
+                            link={getLessonRoute(course.pathName,section.id,lesson.id)}
+                            title={lesson.name}
+                            description={lesson.description}
+                        />
+                    </Box>
+                ))
+            }
+        </Collapse>
     )
 }

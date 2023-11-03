@@ -1,8 +1,8 @@
-import { LessonContainer, LessonParagraph, LessonTitle, LessonBox, LessonSubtitle, LessonAlert } from "@/components/lessonComponents/lessonComponents";
+import { LessonContainer, LessonParagraph, LessonTitle, LessonBox, LessonSubtitle, LessonAlert } from "@/components/lessonComponents/widgets";
 import { LessonComponent } from "@/interfaces/baseInterfaces";
-import { LessonIndicator } from "@/components/lessonComponents/lessonIndicator";
+import { LessonIndicator } from "@/components/lessonComponents/indicator";
 
-export default function GuitarS1L3({ title }: LessonComponent) {
+export default function ({ title }: LessonComponent) {
     return (
         <LessonContainer>
             <LessonTitle title={title} />

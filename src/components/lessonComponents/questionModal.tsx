@@ -1,9 +1,9 @@
-import { Box, Button, ButtonProps, Card, Fade, Modal } from "@mui/material";
+import { Box, Button, ButtonProps, Card, Fade, Modal, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { FretMarkerPosition, GuitarNeck } from "./guitar";
-import { Check, Clear, HorizontalRule, OpenInFull } from "@mui/icons-material";
+import { Check, CheckBoxOutlineBlank, CheckBoxSharp, CheckCircle, CheckCircleOutline, Clear, HorizontalRule, OpenInFull } from "@mui/icons-material";
 import { Hcontainer, defaultMargin, modal, modalContainer } from "@/styles/styles";
-import { LessonParagraph, LessonSubtitle, LessonTitle } from "./lessonComponents";
+import { LessonParagraph, LessonSubtitle } from "./widgets";
 
 export function QuestionModalButton({ onClick,children }: ButtonProps) {
     return (
@@ -138,7 +138,8 @@ export default function QuestionModal({ open, onClose, questions }: QuestionModa
                             testParams.finalized === true ?
                                 <Card
                                     elevation={5}
-                                    sx={{ ...modalContainer() }}>
+                                    sx={{ ...modalContainer(), minWidth : 600 }}>
+                                        <CheckCircle color="success" fontSize="large"/>
                                     <LessonSubtitle text={"Practica finalizada"} />
                                     <Button onClick={() => { onClose({}, "backdropClick") }}>Cerrar</Button>
                                 </Card>
@@ -147,8 +148,10 @@ export default function QuestionModal({ open, onClose, questions }: QuestionModa
                                 <Card elevation={5}
                                     sx={{ ...modalContainer() }}
                                 >
-                                    <Box>
-                                        <LessonParagraph text={currentQuestion.question} />
+                                    <Box
+                                    sx={{m:2}}
+                                    >
+                                        <Typography variant="h6">{currentQuestion.question}</Typography>
                                     </Box>
                                     <Box>
                                         {

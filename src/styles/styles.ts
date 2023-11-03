@@ -41,12 +41,6 @@ export const modal = () => {
     return sx
 }
 
-export const SubItemSx = () => {
-    const sx : SxProps = {
-        marginLeft : 3
-    }
-    return sx
-}
 
 
 

@@ -1,29 +1,22 @@
 import Link from "next/link"
 import { Box, ListItemButton, ListItemIcon, Typography } from "@mui/material"
-import { saveLessonId } from "@/utils/lessonUtils"
+
 
 interface OListItemProps {
     title: string
     icon?: JSX.Element
     link?: string
     description?: string
-    lessonId?: { course: string, lessonId: string }
 }
-export function OListItem({
+export function LessonLink({
     title,
     link = "#",
     icon,
-    description,
-    lessonId
+    description
 }: OListItemProps) {
     return (
         <Link href={link}>
             <ListItemButton
-                onClick={() => {
-                    if (lessonId) {
-                        saveLessonId(lessonId.course, lessonId.lessonId)
-                    }
-                }}
                 sx={{
                     display: "flex",
                     flexDirection: "row",

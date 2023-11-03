@@ -1,10 +1,10 @@
 import { GuitarNeck } from "@/components/lessonComponents/guitar";
-import { LessonBox, LessonContainer, LessonDivider, LessonParagraph, LessonSubtitle, LessonTitle } from "@/components/lessonComponents/lessonComponents";
+import { LessonBox, LessonContainer, LessonDivider, LessonParagraph, LessonSubtitle, LessonTitle } from "@/components/lessonComponents/widgets";
 import { LessonComponent } from "@/interfaces/baseInterfaces";
 import { Hcontainer } from "@/styles/styles";
 import { Box, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 
-export default function GuitarS2L4({ title }: LessonComponent) {
+export default function ({ title }: LessonComponent) {
     const intervals = [
         { strings: "6ta cuerda => 5ta cuerda", notes: "Mi => La", semitones: 5 },
         { strings: "5ta cuerda => 4ta cuerda", notes: "La => Re", semitones: 5 },
