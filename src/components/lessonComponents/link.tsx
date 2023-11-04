@@ -23,17 +23,15 @@ export function LessonLink({
                     alignItems: "center"
                 }}
             >
-                <ListItemIcon>
-                    {icon}
-                </ListItemIcon>
+                <ListItemIcon>{icon}</ListItemIcon>
                 <Box
                     sx={{
                         display: "flex",
                         flexDirection: "column"
                     }}
                 >
-                    <Typography variant="h5">{title}</Typography>
-                    <Typography variant="body1">{description}</Typography>
+                    <Typography variant="h6">{title}</Typography>
+                    <Typography variant="subtitle2">{description}</Typography>
                 </Box>
             </ListItemButton>
         </Link>

@@ -1,11 +1,11 @@
-import { Box, Button, ButtonProps, Card, Fade, Modal, Typography } from "@mui/material";
+import { Box, Button, ButtonProps, Card, Fade, Modal, Pagination, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { FretMarkerPosition, GuitarNeck } from "./guitar";
 import { Check, CheckBoxOutlineBlank, CheckBoxSharp, CheckCircle, CheckCircleOutline, Clear, HorizontalRule, OpenInFull } from "@mui/icons-material";
 import { Hcontainer, defaultMargin, modal, modalContainer } from "@/styles/styles";
-import { LessonParagraph, LessonSubtitle } from "./widgets";
+import { LParagraph, LSubtitle } from "./widgets";
 
-export function QuestionModalButton({ onClick,children }: ButtonProps) {
+export function QuestionModalButton({ onClick, children }: ButtonProps) {
     return (
         <Box sx={{
             display: "flex",
@@ -20,8 +20,8 @@ export function QuestionModalButton({ onClick,children }: ButtonProps) {
                 minWidth: "100%",
                 p: 2
             }}>{
-                children ? children : "Inicar practica"
-            }</Button>
+                    children ? children : "Inicar practica"
+                }</Button>
         </Box>
     )
 }
@@ -37,7 +37,7 @@ export interface neckQuestion {
     question: string,
     solutions: FretMarkerPosition[][],
     defaultMarkers?: FretMarkerPosition[]
-    verificationMethod? : (response : FretMarkerPosition[] ,solutions : FretMarkerPosition[][]) => boolean
+    verificationMethod?: (response: FretMarkerPosition[], solutions: FretMarkerPosition[][]) => boolean
 }
 
 interface QuestionModalProps {
@@ -92,8 +92,8 @@ export default function QuestionModal({ open, onClose, questions }: QuestionModa
         let result = currentQuestion.solutions.some((solution: FretMarkerPosition[]) => {
             return selectedFretString === JSON.stringify(solution);
         });
-        if(currentQuestion.verificationMethod){
-            result = currentQuestion.verificationMethod(selectedFrets,currentQuestion.solutions)
+        if (currentQuestion.verificationMethod) {
+            result = currentQuestion.verificationMethod(selectedFrets, currentQuestion.solutions)
         }
 
         setIconFade(false);
@@ -138,66 +138,69 @@ export default function QuestionModal({ open, onClose, questions }: QuestionModa
                             testParams.finalized === true ?
                                 <Card
                                     elevation={5}
-                                    sx={{ ...modalContainer(), minWidth : 600 }}>
-                                        <CheckCircle color="success" fontSize="large"/>
-                                    <LessonSubtitle text={"Practica finalizada"} />
+                                    sx={{ ...modalContainer(), minWidth: 600 }}>
+                                    <CheckCircle color="success" fontSize="large" />
+                                    <LSubtitle text={"Practica finalizada"} />
                                     <Button onClick={() => { onClose({}, "backdropClick") }}>Cerrar</Button>
                                 </Card>
                                 :
                                 // renderizar cuestionario
-                                <Card elevation={5}
-                                    sx={{ ...modalContainer() }}
-                                >
-                                    <Box
-                                    sx={{m:2}}
-                                    >
-                                        <Typography variant="h6">{currentQuestion.question}</Typography>
-                                    </Box>
-                                    <Box>
-                                        {
-                                            showNeck ?
-
-                                                <GuitarNeck
-                                                    allowAdd={true}
-                                                    setWhenAddMarker={setSelectedFrets}
-                                                    fretMarkers={
-                                                        currentQuestion.defaultMarkers ?
-                                                            currentQuestion.defaultMarkers : []
-                                                    }
-                                                />
-
-                                                : null
-                                        }
-                                    </Box>
+                                <Card elevation={5} sx={{ ...modalContainer() }}>
                                     <Box sx={{
-                                        ...Hcontainer(),
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        width: "100%",
+                                        display:"flex",flexDirection:"column",alignItems : "center",gap:2
                                     }}>
-                                        <Button
-                                            sx={{
-                                                m: 1,
-                                                fontSize: 18,
-                                                pl: 4,
-                                                pr: 4,
-                                            }}
-                                            color={
-                                                testParams.checkResult === null ? "primary" :
-                                                    testParams.checkResult === true ? "success" : "error"
-                                            }
-                                            variant="text"
-                                            onClick={check}>
-                                            Evaluar
-                                        </Button>
-                                        {/* check State icon */}
-                                        <Fade in={iconFade} timeout={500}>
+                                        <Pagination
+                                            count={questions.length}
+                                            page={testParams.questionNumber + 1}
+                                            hideNextButton hidePrevButton
+                                            color="primary"
+                                        />
+                                        <Box>
+                                            <Typography variant="h6">{currentQuestion.question}</Typography>
+                                        </Box>
+                                        <Box>
                                             {
-                                                testParams.checkResult === null ? <HorizontalRule fontSize="large" /> :
-                                                    testParams.checkResult === true ? <Check fontSize="large" color="success" /> :
-                                                        <Clear fontSize="large" color="error" />
+                                                showNeck ?
+                                                    <GuitarNeck
+                                                        allowAdd={true}
+                                                        setWhenAddMarker={setSelectedFrets}
+                                                        fretMarkers={
+                                                            currentQuestion.defaultMarkers ?
+                                                                currentQuestion.defaultMarkers : []
+                                                        }
+                                                    />
+                                                    : null
                                             }
-                                        </Fade>
+                                        </Box>
+                                        <Box sx={{
+                                            ...Hcontainer(),
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            width: "100%",
+                                        }}>
+                                            <Button
+                                                sx={{
+                                                    fontSize: 18,
+                                                    pl: 4,
+                                                    pr: 4,
+                                                }}
+                                                color={
+                                                    testParams.checkResult === null ? "primary" :
+                                                        testParams.checkResult === true ? "success" : "error"
+                                                }
+                                                variant="text"
+                                                onClick={check}>
+                                                Evaluar
+                                            </Button>
+                                            {/* check State icon */}
+                                            <Fade in={iconFade} timeout={500}>
+                                                {
+                                                    testParams.checkResult === null ? <HorizontalRule fontSize="large" /> :
+                                                        testParams.checkResult === true ? <Check fontSize="large" color="success" /> :
+                                                            <Clear fontSize="large" color="error" />
+                                                }
+                                            </Fade>
+                                        </Box>
                                     </Box>
                                 </Card>
                         }

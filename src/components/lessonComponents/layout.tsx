@@ -1,41 +1,40 @@
-import usePaginator, { Paginator } from "@/hooks/usePaginator"
-import { NavigateBefore, NavigateNext } from "@mui/icons-material"
-import { Box, Button, Typography } from "@mui/material"
-
+import { Course, CourseLesson } from "@/interfaces/baseInterfaces"
+import { Box, Pagination, Stack, Typography } from "@mui/material"
+import { useState } from "react"
+import CourseNavbar from "../nav/courseNavbar"
 export interface LessonLayoutProps {
     segments: JSX.Element[]
-    title: string
 }
 
-export function LessonLayout({ segments, title }: LessonLayoutProps) {
-    const paginator = usePaginator(segments)
-    return (
-        <>
-            <Typography align="center" variant="h4" sx={{
-                fontWeight: 400
-            }}>{title}</Typography>
-            {
-                segments[paginator.current]
-            }
-            <LessonPaginatorButtons paginator={paginator} />
-        </>
-    )
-}
-
-
-function LessonPaginatorButtons({ paginator }: { paginator: Paginator }) {
+export function LessonLayout({ segments }: LessonLayoutProps) {
+    const [page, setPage] = useState<number>(1)
+    function changePage(e: React.ChangeEvent<any>, value: number) {
+        setPage(value)
+        window.scrollTo(0, 0)
+    }
     return (
         <Box sx={{
-            display : "flex",
-            flexDirection: "row",
-            justifyContent : "center"
+            p: 2,
+            mb: 30
         }}>
-            <Button
-                startIcon={<NavigateBefore />}
-                onClick={paginator.back}>Anterior</Button>
-            <Button
-                endIcon={<NavigateNext />}
-                onClick={paginator.next}>Siguiente</Button>
+            <Box>
+                {
+                    segments[page - 1]
+                }
+            </Box>
+            <Box sx={{
+                display: "flex", flexDirection: "row", justifyContent: "center"
+            }}>
+                <Stack spacing={2}>
+                    <Pagination
+                        size="large"
+                        count={segments.length}
+                        page={page}
+                        onChange={changePage}
+                    />
+                </Stack>
+            </Box>
         </Box>
     )
 }
+

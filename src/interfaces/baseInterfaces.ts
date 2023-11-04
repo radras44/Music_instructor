@@ -17,10 +17,6 @@ export interface Course {
     sections : CourseSection[]
 }
 
-export interface LessonComponent {
-    title : string    
-}
-
 export interface Statement {
     statement: string
     correction: JSX.Element | string

@@ -1,12 +1,11 @@
 "use client"
-import { Course, CourseLesson, CourseSection } from "@/interfaces/baseInterfaces";
-import { Box, Drawer, Grid, ListItemButton, ListItemIcon, useMediaQuery } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Course } from "@/interfaces/baseInterfaces";
+import { Box, useMediaQuery } from "@mui/material";
 import guitarCourse from "../Register";
 import ThemeContainer from "@/components/themes";
 import { useTheme } from "@mui/material/styles";
-import { getLesson } from "@/utils/routerUtils";
 import CourseNavbar from "@/components/nav/courseNavbar";
+import useLesson from "@/hooks/useLesson";
 
 
 const course: Course = guitarCourse
@@ -14,38 +13,24 @@ const course: Course = guitarCourse
 export default function GuitarLessons({ params }: { params: { routeId: string } }) {
     const theme = useTheme()
     const uplg = useMediaQuery(theme.breakpoints.up("lg"))
-
-    const [lesson, setLesson] = useState<CourseLesson | null>(null)
-    const [sectionId, setSectionId] = useState<number | null>(null)
-
-    useEffect(() => {
-        const splited = params.routeId.split("-")
-
-        if (splited.length >= 2) {
-            const sectionId = Number(splited[0].substring(1))
-            setSectionId(sectionId)
-            const lessonId = Number(splited[1].substring(1))
-            const lesson: CourseLesson | null = getLesson("guitar", sectionId, lessonId)
-            setLesson(lesson)
-        }
-    }, [])
+    const {current,sectionId} = useLesson(params.routeId)
 
     return (
         <ThemeContainer maxWidth={"lg"}>
             <Box>
                 {
-                    lesson && sectionId ?
+                    current && sectionId ?
                         <CourseNavbar
                             course={course}
-                            currentLesson={lesson}
+                            currentLesson={current}
                             currentSectionId={sectionId}
                         /> : null
                 }
             </Box>
-            <Box sx={{mt:15}}>
+            <Box sx={{mt:5}}>
                 {
-                    lesson ?
-                        lesson.component
+                    current ?
+                        current.component
                         : null
                 }
             </Box>

@@ -1,11 +1,8 @@
-import { Vcontainer } from "@/styles/styles";
-import { LabelImportant, NavigateBefore, NavigateNext } from "@mui/icons-material";
-import { Alert, AlertProps, Box, Button, Fade, Slide, Typography } from "@mui/material";
-import { defaultMargin, defaultPadding } from "@/styles/styles";
+import { LabelImportant } from "@mui/icons-material";
+import { Alert, AlertProps, Box, Fade, Typography } from "@mui/material";
 import HighLighter from "./highlighter";
-import usePaginator, { Paginator } from "@/hooks/usePaginator";
 
-export function LessonSegment({ children }: { children: React.ReactNode }) {
+export function LSegment({ children }: { children: React.ReactNode }) {
     return (
         <Fade in={true} timeout={500} >
             <Box sx={{
@@ -24,14 +21,14 @@ export function LessonSegment({ children }: { children: React.ReactNode }) {
 
 //text-------------------------------------------------------->
 
-export function LessonSubtitle({ text }: { text: string }) {
+export function LSubtitle({ text }: { text: string }) {
     return (
         <Typography variant="h5">{text}</Typography>
     )
 }
 
 
-export function LessonParagraph({ text }: { text: string }) {
+export function LParagraph({ text }: { text: string }) {
     return (
         <Box>
             <Typography variant="subtitle1">
@@ -45,7 +42,7 @@ interface LessonAlertProps extends AlertProps {
     text: string
 }
 
-export function LessonAlert({ text, severity = "warning" }: LessonAlertProps) {
+export function LAlert({ text, severity = "warning" }: LessonAlertProps) {
     return (
         <Alert severity={severity}>
             {text}
@@ -60,7 +57,7 @@ interface LessonListItemProps {
     listItemMargin?: boolean
     children?: React.ReactNode
 }
-export function LessonListItem({ children, text, listItemMargin = true }: LessonListItemProps) {
+export function LListItem({ children, text, listItemMargin = true }: LessonListItemProps) {
     return (
         <Box sx={{
             display: "flex",

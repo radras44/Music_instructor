@@ -1,7 +1,7 @@
 import { Course, CourseLesson, CourseSection } from "@/interfaces/baseInterfaces";
 import { getLessonRoute } from "@/utils/routerUtils";
-import { AutoStories } from "@mui/icons-material";
-import { AppBar, Box, Button, Collapse, Drawer, List, ListItem, ListItemButton, ListItemText, Typography } from "@mui/material";
+import { AutoStories, Home } from "@mui/icons-material";
+import { AppBar, Box, Button, Collapse, Drawer, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography } from "@mui/material";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -35,11 +35,32 @@ export default function CourseNavbar({ course, currentLesson, currentSectionId }
     }
     return (
         <AppBar sx={{
-            p:2
+            minHeight : 60,
+            display : "flex",
+            alignItems : "center",
+            flexDirection : "row"
         }}>
-            <Button onClick={openDrawer}>
-                <AutoStories fontSize="large" />
-            </Button>
+            <Box sx={{flex:1}}>
+                <Link href={"/"}>
+                    <Button color="inherit">
+                        <Home fontSize="medium" />
+                    </Button>
+                </Link>
+                <Button onClick={openDrawer} color="success">
+                    <AutoStories fontSize="medium" />
+                </Button>
+            </Box>
+            <Box sx={{flex:1}}>
+                <Typography 
+                align="center" 
+                variant="h6" 
+                sx={{color: "grey.400"}}
+                >{currentLesson.name}</Typography>
+            </Box>
+            <Box sx={{flex :1}}>
+
+            </Box>
+            {/* drawer content */}
             <Drawer open={showDrawer} onClose={closeDrawer} anchor="left">
                 <List>
                     {
@@ -60,7 +81,7 @@ export default function CourseNavbar({ course, currentLesson, currentSectionId }
                                             <Box key={lindex}>
                                                 <Link href={getLessonRoute("guitar", section.id, lesson.id)}>
                                                     <ListItemButton selected={lesson.name === currentLesson.name}>
-                                                        {lesson.name}
+                                                        <Typography variant="subtitle2">{lesson.name}</Typography>
                                                     </ListItemButton>
                                                 </Link>
                                             </Box>

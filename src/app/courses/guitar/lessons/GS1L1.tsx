@@ -1,39 +1,30 @@
 import { GuitarNeck } from "@/components/lessonComponents/guitar";
-import { LessonListItem, LessonParagraph, LessonSegment, LessonSubtitle } from "@/components/lessonComponents/widgets";
-import QuestionModal, { QuestionModalButton, neckQuestion, useQuestionModal } from "@/components/lessonComponents/questionModal";
-import { LessonComponent } from "@/interfaces/baseInterfaces";
-import { Hcontainer } from "@/styles/styles";
-import { Box } from "@mui/material";
-import { guitarS1L1Questions } from "../questions/guitarS1Questions";
+import { LListItem, LParagraph, LSegment, LSubtitle } from "@/components/lessonComponents/widgets";
+import QuestionModal, { QuestionModalButton, useQuestionModal } from "@/components/lessonComponents/questionModal";
 import {LessonLayout} from "@/components/lessonComponents/layout";
-
-const questions: neckQuestion[] = guitarS1L1Questions
+import { questions_1 } from "./GS1L1Q";
+import LNeckContainer from "@/components/lessonComponents/containers";
 
 const segments : JSX.Element[] = [<Segment_1/>,<Segment_2/>,<Segment_3/>]
 
-export default function ({ title }: LessonComponent) {
+export default function () {
     return (
-        <Box>
-            <LessonLayout
-            title={title}
+        <LessonLayout
             segments={segments}
-            />
-        </Box>
+        />
     )
 }
 
+
 function Segment_1() {
     return (
-        <LessonSegment>
-            <LessonSubtitle text="Lectura de diagramas" />
-            <LessonParagraph text="La guitarrra convencionalmente tiene 6 cuerdas, cada una de estas cuerdas se encuentra en un mastil de madera, este mastil se separa en varios espacios los cuales tienen que ser presionados para marcar notas especificas, a estos espacios se les llama 'trastes':" />
-
-            <LessonParagraph text="Tanto las cuerdas como los trastes se pueden representar en un 'Diagrama de mastil' el cual servira ejemplificar muchas estructuras o elementos de la musica aplicadas a la guitarra, como acordes, intervalos, escalas, ideas musicales, entre otros, devido a esto es importante saber 'interpretar/leer' cualquier diagrama que te pongan enfrente." />
-
-            <LessonListItem text="Las cuerdas se cuentan desde la 'mas aguda a la mas grave', no alrrevez, osea que la cuerda mas fina es la numero 1, y la cuerda mas grave es numero 6" />
-            <LessonListItem text="Los trastes se enumeran de izquierda a derecha" />
-
-            <LessonParagraph text="Aqui hay una plantilla de diagrama de guitarra como ejemplo:" />
+        <LSegment>
+            <LSubtitle text="Lectura de diagramas" />
+            <LParagraph text="La guitarrra convencionalmente tiene 6 cuerdas, cada una de estas cuerdas se encuentra en un mastil de madera, este mastil se separa en varios espacios los cuales tienen que ser presionados para marcar notas especificas, a estos espacios se les llama 'trastes':" />
+            <LParagraph text="Tanto las cuerdas como los trastes se pueden representar en un 'Diagrama de mastil' el cual servira ejemplificar muchas estructuras o elementos de la musica aplicadas a la guitarra, como acordes, intervalos, escalas, ideas musicales, entre otros, devido a esto es importante saber 'interpretar/leer' cualquier diagrama que te pongan enfrente." />
+            <LListItem text="Las cuerdas se cuentan desde la 'mas aguda a la mas grave', no alrrevez, osea que la cuerda mas fina es la numero 1, y la cuerda mas grave es numero 6" />
+            <LListItem text="Los trastes se enumeran de izquierda a derecha" />
+            <LParagraph text="Aqui hay una plantilla de diagrama de guitarra como ejemplo:" />
             <GuitarNeck
                 fretMarkers={[
                     { position: [6, 0], text: "6" },
@@ -44,16 +35,15 @@ function Segment_1() {
                     { position: [1, 0], text: "1" },
                 ]}
             />
-        </LessonSegment>
+        </LSegment>
     )
 }
 
 function Segment_2() {
     return (
-        <LessonSegment>
-
-                <LessonParagraph text="Para indicar una posicion en el diagrama tenemos que indicar tanto la cuerda como el traste especifico, aqui hay algunos ejemplos:" />
-                <Box sx={{ ...Hcontainer() }}>
+        <LSegment>
+                <LParagraph text="Para indicar una posicion en el diagrama tenemos que indicar tanto la cuerda como el traste especifico, aqui hay algunos ejemplos:" />
+                <LNeckContainer>
                     <GuitarNeck
                         label="cuerda 6 traste 3"
                         neckRange={[0, 5]}
@@ -64,10 +54,11 @@ function Segment_2() {
                         neckRange={[0, 5]}
                         fretMarkers={[{ position: [1, 2] }]}
                     />
-                </Box>
+                </LNeckContainer>
+               
 
-                <LessonParagraph text="En caso de tocar la cuerda sin presionar ningun traste, se dice que esta siendo tocada al aire:" />
-                <Box sx={{ ...Hcontainer() }}>
+                <LParagraph text="En caso de tocar la cuerda sin presionar ningun traste, se dice que esta siendo tocada al aire:" />
+                <LNeckContainer>
                     <GuitarNeck
                         label="cuerda 6 al aire"
                         neckRange={[0, 5]}
@@ -78,10 +69,10 @@ function Segment_2() {
                         neckRange={[0, 5]}
                         fretMarkers={[{ position: [5, 0] }]}
                     />
-                </Box>
+                </LNeckContainer>
 
-                <LessonParagraph text="Siempre es recomendable fijarse en el rango de trastes que esta representando el diagrama para no interpretar todo de forma desplazada:" />
-                <Box sx={{ ...Hcontainer() }}>
+                <LParagraph text="Siempre es recomendable fijarse en el rango de trastes que esta representando el diagrama para no interpretar todo de forma desplazada:" />
+                <LNeckContainer>
                     <GuitarNeck
                         label="diagrama con trastes del 1 al 5"
                         neckRange={[0, 5]}
@@ -90,23 +81,23 @@ function Segment_2() {
                         label="diagrama con trastes del 4 al 9"
                         neckRange={[4, 9]}
                     />
-                </Box>
+                </LNeckContainer>
 
-        </LessonSegment>
+        </LSegment>
     )
 }
 
 function Segment_3() {
     const questionModal = useQuestionModal()
     return (
-        <LessonSegment>
+        <LSegment>
             <QuestionModal
-                questions={questions}
+                questions={questions_1}
                 open={questionModal.showQuestionModal}
                 onClose={questionModal.closeQuestionModal} />
             <QuestionModalButton onClick={questionModal.openQuestionModal}>
                 Iniciar practica : Diagrama de mastil
             </QuestionModalButton>
-        </LessonSegment>
+        </LSegment>
     )
 }

@@ -8,7 +8,7 @@ interface LessonIndicatorProps {
     altType? : "b" | "#"
     align? : "center" | "start" | "end"
 }
-export function LessonIndicator({ label, indicators = [],altType = "#", listType = "notes", customList = [], limit = 12,align = "start" }: LessonIndicatorProps) {
+export function LIndicator({ label, indicators = [],altType = "#", listType = "notes", customList = [], limit = 12,align = "start" }: LessonIndicatorProps) {
     const lists = {
         notes: ["Do", "Do#", "Re", "Re#", "Mi", "Fa", "Fa#", "Sol", "Sol#", "La", "La#", "Si", "Do"],
         intervals: ["1", "b2", "2", "b3", "3", "4", "#4", "5", "b6", "6", "b7", "7", "8"],
