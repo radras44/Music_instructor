@@ -1,22 +1,18 @@
 import React, { useEffect, useRef, useState } from "react"
 import guitarStyles from "../../styles/guitar.module.css"
-
-export interface FretMarkerPosition {
-    position: [number, number]
-    text?: string
-}
+import { FretMarker } from "@/interfaces/baseInterfaces"
 
 interface GuitarNeckProps {
     label?: string
     frets?: number
     strings?: number
-    fretMarkers?: FretMarkerPosition[]
+    fretMarkers?: FretMarker[]
     neckRange?: number[]
     allowAdd?: boolean
     rootNote?: string
     highlight?: string[]
     setWhenAddMarker?: Function
-    resetEmit?: any
+    showFretLabels? : boolean
 }
 
 export function GuitarNeck({
@@ -28,17 +24,17 @@ export function GuitarNeck({
     rootNote,
     highlight = [],
     setWhenAddMarker,
-    resetEmit
+    showFretLabels = true
 }: GuitarNeckProps) {
     console.log("render")
     const stringRefs = useRef<Array<HTMLDivElement | null>>(
         Array.from({ length: strings }).map(() => null)
     );
 
-    const [addedMarkers, setAddedMarkers] = useState<FretMarkerPosition[]>([])
+    const [addedMarkers, setAddedMarkers] = useState<FretMarker[]>([])
 
     //funciones===============================================>
-    function addOrDeleteMarker(fretMarker: FretMarkerPosition, added: boolean = false) {
+    function addOrDeleteMarker(fretMarker: FretMarker, added: boolean = false) {
         //agregar texto a cada traste que lo requiera
         const string = stringRefs.current[(fretMarker.position[0] - 1)]
         if (string) {
@@ -74,7 +70,7 @@ export function GuitarNeck({
         }
     }
 
-    function updateAddedMarkers(newFretPosition: FretMarkerPosition) {
+    function updateAddedMarkers(newFretPosition: FretMarker) {
         setAddedMarkers(prevData => {
             if (prevData.some(
                 fretIndicator =>
@@ -110,7 +106,7 @@ export function GuitarNeck({
                     const frets = stringElement.children
                     Array.from(frets).forEach((fret, fretIdx) => {
                         fret.addEventListener("click", () => {
-                            let fretMarker: FretMarkerPosition = {
+                            let fretMarker: FretMarker = {
                                 position: [stringIdx + 1, fretIdx]
                             }
                             addOrDeleteMarker(fretMarker, true)
@@ -121,15 +117,6 @@ export function GuitarNeck({
             })
         }
     }, [])
-
-    //monitorear estado para resetear los marcadores
-    useEffect(() => {
-        if (resetEmit) {
-            if (addedMarkers.length > 0) {
-                resetMarkers()
-            }
-        }
-    }, [resetEmit])
 
     //actualizar estado cada vez que se agrega un marcador
     useEffect(() => {
@@ -157,17 +144,18 @@ export function GuitarNeck({
                     {/* Crear trastes del mástil */}
                     {Array.from({ length: (neckRange[1] - neckRange[0]) + 1 }).map((_, fretIdx) => (
                         <div key={fretIdx} className={
+                            // agregar estilos del backgraund del traste segun si es una cuerda al aire o no
                             neckRange[0] == 0 && fretIdx == 0 ?
                                 `${guitarStyles.fret} ${guitarStyles["string-open"]} `
                                 :
                                 `${guitarStyles.fret} ${guitarStyles[`string-fret`]}`
                         }>
+                            {/* agregar label encima de cada traste indicando su numero*/}
                             {
-                                stringIdx == 0 && (fretIdx + neckRange[0]) !== 0 ?
+                                showFretLabels && stringIdx == 0 && (fretIdx + neckRange[0]) !== 0 ?
                                     <div className={guitarStyles.fretNumberLabel}>{fretIdx + neckRange[0]}</div>
                                     : null
                             }
-                            {/* Crear labels o indicadores encima de cada traste */}
                             <div className={`${guitarStyles.fretMarker}`}></div>
                         </div>
                     ))}

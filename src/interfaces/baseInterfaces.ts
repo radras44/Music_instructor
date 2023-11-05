@@ -21,3 +21,17 @@ export interface Statement {
     statement: string
     correction: JSX.Element | string
 }
+
+// guitar
+
+export interface neckQuestion {
+    question: string,
+    solutions: FretMarker[][],
+    defaultMarkers?: FretMarker[]
+    verificationMethod?: (response: FretMarker[], solutions: FretMarker[][]) => boolean
+}
+
+export interface FretMarker {
+    position: [number, number]
+    text?: string
+}

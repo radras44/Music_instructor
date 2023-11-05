@@ -15,13 +15,9 @@ export function LessonLayout({ segments }: LessonLayoutProps) {
     return (
         <Box sx={{
             p: 2,
-            mb: 30
+            mb: 15
         }}>
-            <Box>
-                {
-                    segments[page - 1]
-                }
-            </Box>
+            <Box>{segments[page - 1]}</Box>
             <Box sx={{
                 display: "flex", flexDirection: "row", justifyContent: "center"
             }}>

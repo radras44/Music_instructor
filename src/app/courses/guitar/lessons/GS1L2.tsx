@@ -1,4 +1,4 @@
-import { GuitarNeck } from "@/components/lessonComponents/guitar";
+import { GuitarNeck } from "@/components/lessonComponents/guitarNeck";
 import { LIndicator } from "@/components/lessonComponents/indicator";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { LessonLayout } from "@/components/lessonComponents/layout";
