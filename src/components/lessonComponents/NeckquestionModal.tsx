@@ -158,7 +158,6 @@ export function NeckQuestionModal({ useObj, title, description }: QuestionModalP
                     <Box>
                         <Fade in={contentFade} timeout={contentFadeTime}>
                             {
-
                                 testParams.finalized === true ?
                                     <Card
                                         elevation={5}

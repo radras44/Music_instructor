@@ -4,17 +4,14 @@ import { useNeckQuestionModal, NeckQuestionModal } from "@/components/lessonComp
 import { LessonLayout } from "@/components/lessonComponents/layout";
 import { questions_1, questions_2,questions_3 } from "./GS1L1Q";
 import LNeckContainer from "@/components/lessonComponents/containers";
+import {createElement} from "react"
+import { genSegments } from "@/utils/componentUtils";
 
-const segments: JSX.Element[] = [<Segment_1 />, <Segment_2 />, <Segment_3 />]
+const segments = genSegments([Segment_1,Segment_2,Segment_3])
 
-export default function () {
-    return (
-        <LessonLayout
-            segments={segments}
-        />
-    )
+export default function GS1L1 () {
+    return <LessonLayout segments={segments}/>
 }
-
 
 function Segment_1() {
     const questionModal_1 = useNeckQuestionModal(questions_1)
@@ -88,7 +85,6 @@ function Segment_2() {
                     neckRange={[4, 9]}
                 />
             </LNeckContainer>
-
         </LSegment>
     )
 }

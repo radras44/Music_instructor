@@ -3,14 +3,12 @@ import { LIndicator } from "@/components/lessonComponents/indicator";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { LessonLayout } from "@/components/lessonComponents/layout";
 import { LSubtitle, LParagraph, LAlert, LSegment, LListItem } from "@/components/lessonComponents/widgets";
-const segments: JSX.Element[] = [<Segment_1 />, <Segment_2 />, <Segment_3 />]
+import { genSegments } from "@/utils/componentUtils";
 
-export default function () {
-    return (
-        <LessonLayout
-            segments={segments}
-        />
-    )
+const segments = genSegments([Segment_1,Segment_2,Segment_3])
+
+export default function GS1L2() {
+    return <LessonLayout segments={segments}/>
 }
 
 function Segment_1() {

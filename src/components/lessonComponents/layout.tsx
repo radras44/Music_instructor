@@ -1,6 +1,6 @@
 import { Course, CourseLesson } from "@/interfaces/baseInterfaces"
 import { Box, Pagination, Stack, Typography } from "@mui/material"
-import { useState } from "react"
+import { FunctionComponent, useState } from "react"
 import CourseNavbar from "../nav/courseNavbar"
 export interface LessonLayoutProps {
     segments: JSX.Element[]

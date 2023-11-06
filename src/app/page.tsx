@@ -97,7 +97,7 @@ export default function GuitarTutorials() {
     )
 }
 
-export function LessonCollapse({ section, collapseState,course }: { section: CourseSection, collapseState: boolean,course : Course }) {
+function LessonCollapse({ section, collapseState,course }: { section: CourseSection, collapseState: boolean,course : Course }) {
     return (
         <Collapse in={collapseState === true}>
             {
