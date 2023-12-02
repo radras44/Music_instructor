@@ -2,7 +2,12 @@ import { Container, CssBaseline, ThemeProvider, createTheme } from "@mui/materia
 import React from "react";
 export const darkTheme = createTheme({
     palette: {
-        mode: "dark"
+        mode: "dark",
+        primary : {
+            dark : "#33691e ",
+            main : "#9ccc65",
+            light : "#c5e1a5"
+        }
     }
 })
 

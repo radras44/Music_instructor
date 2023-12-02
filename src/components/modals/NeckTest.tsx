@@ -16,7 +16,7 @@ interface TestModalButtonProps extends ButtonProps {
 function TestButton({ onClick, title, questionNum, description }: TestModalButtonProps) {
     const theme = useTheme()
     const titleStyles: CSSProperties = {
-        color : "success.main",
+        color : "primary.main",
         [theme.breakpoints.down("md")] : {fontSize : 14}
     }
     const DescStyles: CSSProperties = {
@@ -193,7 +193,7 @@ function Modal({ useObj, title, description,hiddeFretNumbers }: QuestionModalPro
                                                     count={useObj.questions.length}
                                                     page={testParams.questionNumber + 1}
                                                     hideNextButton hidePrevButton
-                                                    color="success"
+                                                    color="primary"
                                                 />
                                                 <Typography variant="body1">{currentQuestion.question}</Typography>
                                                 {/* mastil */}

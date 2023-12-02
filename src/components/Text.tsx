@@ -2,14 +2,14 @@ import { robotoMono } from "@/assets/fonts"
 import { TextComponent } from "@/interfaces/baseInterfaces"
 import { LabelImportant } from "@mui/icons-material"
 import { Box, ListItemButton, ListItemIcon, Typography, useTheme } from "@mui/material"
-import { green } from "@mui/material/colors"
+import { green, lightGreen } from "@mui/material/colors"
 import Link from "next/link"
 import { CSSProperties } from "react"
 
 function HighLighter({ text }: { text: string }) {
     const textArray: string[] = text.split("'")
     const textStyles: CSSProperties = {
-        color: green[400],
+        color: lightGreen[400],
         fontWeight: 600
     }
     return (
@@ -49,7 +49,7 @@ function P(props: TextComponent) {
 }
 
 function Title(props: TextComponent) {
-    const textStyles: CSSProperties = { color: "success.light" }
+    const textStyles: CSSProperties = { color: "primary.main" }
     return (
         <Typography variant="h5" className={robotoMono.className} sx={textStyles}>
             {

@@ -1,6 +1,6 @@
 import { Course, CourseLesson, CourseSection } from "@/interfaces/baseInterfaces";
 import { getLessonRoute } from "@/utils/routerUtils";
-import { AutoStories, Home } from "@mui/icons-material";
+import { AutoStories, Home, KeyboardArrowDown, KeyboardArrowRight } from "@mui/icons-material";
 import { AppBar, Box, Button, Collapse, Drawer, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography } from "@mui/material";
 import Link from "next/link";
 import { CSSProperties, useState } from "react";
@@ -53,6 +53,9 @@ export default function CourseNavbar({ course, currentLesson, currentSectionId }
         fontSize : 25,
         [theme.breakpoints.down("md")] : {fontSize : 22},
     }
+    const DrawerLIStyles : CSSProperties = {
+        display:"flex",gap:1
+    }
     return (
         <AppBar sx={appBarStyles}>
             <Box sx={{flex:1}}>
@@ -61,7 +64,7 @@ export default function CourseNavbar({ course, currentLesson, currentSectionId }
                         <Home sx={iconStyles}/>
                     </Button>
                 </Link>
-                <Button onClick={openDrawer} color="success">
+                <Button onClick={openDrawer} color="secondary">
                     <AutoStories sx={iconStyles}/>
                 </Button>
             </Box>
@@ -83,12 +86,14 @@ export default function CourseNavbar({ course, currentLesson, currentSectionId }
                 <List>
                     {
                         course.sections.map((section, index) => (
-                            <Box key={index}>
-                                <ListItemButton
+                            <Box key={index} >
+                                <ListItemButton sx={DrawerLIStyles}
                                     onClick={() => {
                                         toggleCollapse(index)
                                     }}
                                 >
+                                    {collapses[index] ?  <KeyboardArrowDown/>: <KeyboardArrowRight/>}
+                                   
                                     <Typography>{section.name}</Typography>
                                 </ListItemButton>
                                 <Collapse in={collapses[index]}>
