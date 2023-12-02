@@ -5,10 +5,10 @@ import { Box, Collapse, Grid, List, ListItemButton, Typography } from "@mui/mate
 import { Book } from "@mui/icons-material";
 import ThemeContainer from "@/components/themes";
 import guitarCourse from "./courses/guitar/Register";
-import { useEffect, useState } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import { getLessonRoute } from "@/utils/routerUtils";
 import Text from "@/components/Text";
-import {redirect} from "next/navigation"
+import { redirect } from "next/navigation"
 
 
 const courses: Course[] = [
@@ -54,57 +54,68 @@ export default function App() {
         )
     }
 
+    const titleStyles: CSSProperties = {
+        fontWeight: 600
+    }
+    const containerStyles: CSSProperties = {
+        display: "flex", flexDirection: "column", gap: 10,
+        alignItems: "center", minHeight: "80vh", justifyContent: "center"
+    }
 
-        if (courses.length > 1 && courses[0].url) {
-            return (
-                <ThemeContainer >
-                    <Grid container>
-                        <Grid item xs={12}>
-                            {/* list of courses */}
-                            <List>
-                                {courses.map((course, courseIdx) => (
-                                    <Box key={courseIdx}>
-                                        <ListItemButton onClick={() => {
-                                            setCourseCollapse(courseIdx)
-                                        }}>
-                                            <Typography>{course.name}</Typography>
-                                        </ListItemButton>
-                                        {/*list of sections */}
-                                        <Collapse in={collapses[courseIdx].collapse === true}>
-                                            {
-                                                course.sections.map((section, sectionIdx) => (
-                                                    <Box
-                                                        key={sectionIdx}
-                                                        sx={{ ml: 3 }}
-                                                    >
-                                                        <ListItemButton onClick={() => {
-                                                            setSectionCollapse(courseIdx, sectionIdx)
-                                                        }}>
-                                                            <Typography>{section.name}</Typography>
-                                                        </ListItemButton>
-                                                        {/*list of lessons */}
-                                                        <LessonCollapse
-                                                            course={course}
-                                                            section={section}
-                                                            collapseState={collapses[courseIdx].sections[sectionIdx].collapse}
-                                                        />
-                                                    </Box>
-                                                ))
-                                            }
-                                        </Collapse>
-                                    </Box>
-                                ))}
-                            </List>
-                        </Grid>
-                    </Grid>
-                </ThemeContainer>
-            )
-        } else {
-            const url = courses[0].url + "S1-L1" || "/coursess/guitar/S1-L1"
-            redirect(url)
-        }
-  
+    const titleContainerStyles: CSSProperties = {
+        display: "flex", flexDirection: "column", gap: 2,
+    }
 
+    return (
+        <ThemeContainer >
+            <Box sx={containerStyles} component="main">
+                {/* list of courses */}
+                <Box sx={{ titleContainerStyles }}>
+                    <Typography sx={titleStyles} variant="h2" align="center" component="h1" color="primary">
+                        Bienvenido
+                    </Typography>
+                    <Typography variant="h6" component="h2">Cursos de teoria musical aplicada</Typography>
+                </Box>
+                <Box>
+                    <Typography sx={{color : "primary.main"}} variant="h5">Cursos Disponibles</Typography>
+                    <List>
+                        {courses.map((course, courseIdx) => (
+                            <Box key={courseIdx} component="article">
+                                <ListItemButton onClick={() => {
+                                    setCourseCollapse(courseIdx)
+                                }}>
+                                    <Typography>{course.name}</Typography>
+                                </ListItemButton>
+                                {/*list of sections */}
+                                <Collapse in={collapses[courseIdx].collapse === true}>
+                                    {
+                                        course.sections.map((section, sectionIdx) => (
+                                            <Box
+                                                key={sectionIdx}
+                                                sx={{ ml: 3 }}
+                                            >
+                                                <ListItemButton onClick={() => {
+                                                    setSectionCollapse(courseIdx, sectionIdx)
+                                                }}>
+                                                    <Typography>{section.name}</Typography>
+                                                </ListItemButton>
+                                                {/*list of lessons */}
+                                                <LessonCollapse
+                                                    course={course}
+                                                    section={section}
+                                                    collapseState={collapses[courseIdx].sections[sectionIdx].collapse}
+                                                />
+                                            </Box>
+                                        ))
+                                    }
+                                </Collapse>
+                            </Box>
+                        ))}
+                    </List>
+                </Box>
+            </Box>
+        </ThemeContainer>
+    )
 }
 
 function LessonCollapse({ section, collapseState, course }: { section: CourseSection, collapseState: boolean, course: Course }) {
