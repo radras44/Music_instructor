@@ -1,103 +1,69 @@
-import { GuitarNeck } from "@/components/lessonComponents/guitarNeck";
-import { LListItem, LParagraph, LSegment, LSubtitle } from "@/components/lessonComponents/widgets";
-import { useNeckQuestionModal, NeckQuestionModal } from "@/components/lessonComponents/NeckquestionModal";
-import { LessonLayout } from "@/components/lessonComponents/layout";
-import { questions_1, questions_2,questions_3 } from "./GS1L1Q";
-import LNeckContainer from "@/components/lessonComponents/containers";
-import {createElement} from "react"
+import Guitar from "@/components/Guitar";
+import { chartReadingTestQuestions, stringTestQuestions,fretTestQuestions } from "./GS1L1Q";
+import Lesson from "@/components/Lesson";
 import { genSegments } from "@/utils/componentUtils";
+import { Alert, Typography } from "@mui/material";
+import Text from "@/components/Text";
+import styles from "@/styles/styles"
+import NeckTest from "@/components/modals/NeckTest";
 
-const segments = genSegments([Segment_1,Segment_2,Segment_3])
+const segments = genSegments([Segment_1, Segment_2])
 
-export default function GS1L1 () {
-    return <LessonLayout segments={segments}/>
+export default function GS1L1() {
+    return <Lesson.Layout segments={segments} />
 }
 
 function Segment_1() {
-    const questionModal_1 = useNeckQuestionModal(questions_1)
+    const stringTest = NeckTest.useModal(stringTestQuestions)
     return (
-        <LSegment>
-            <LSubtitle text="Lectura de diagramas" />
-            <LParagraph text="La lectura de diagrama es util para poder replicar acordes, melodias, escalas y otras estructuras musicales en la guitarra, para poder leer un diagrama correctamente deben tenerse en cuenta estos puntos:" />
-            <LListItem text="'mientras mas fina' es una cuerda, 'mas agudo/alto' sera su sonido, 'mientras mas gruesa' es una cuerda, 'mas grave/bajo' sera su sonido" />
-            <LListItem text="'Las cuerdas se cuentan desde la mas aguda a la mas grave', osea que la cuerda mas fina es la numero 1, y la cuerda mas grave es numero 6" />
-            <LParagraph text="Aqui hay una plantilla de diagrama de guitarra con las indicaciones del numero de cada cuerda:" />
-            <GuitarNeck
-                showFretLabels={false}
-                fretMarkers={[
-                    { position: [6, 0], text: "6" },
-                    { position: [5, 0], text: "5" },
-                    { position: [4, 0], text: "4" },
-                    { position: [3, 0], text: "3" },
-                    { position: [2, 0], text: "2" },
-                    { position: [1, 0], text: "1" },
-                ]}
+        <Lesson.Segment>
+            <Text.Title text="Lectura de diagramas"/>
+            <Text.SubTitle text="Cuerdas"/>
+            <Text.P text="La lectura de diagrama es util para poder replicar acordes, melodias, escalas y otras estructuras musicales en la guitarra, para poder leer un diagrama correctamente deben tenerse en cuenta estos puntos:" />
+            <Text.ListItem highlight={true} text="mientras mas fina es una cuerda, mas 'agudo/alto' sera su sonido, 'mientras mas gruesa' es una cuerda, mas 'grave/bajo' sera su sonido" />
+            <Text.ListItem highlight={true} text="'Las cuerdas se cuentan desde abajo hacia arriba', de las mas aguda a la mas grave" />
+            <Text.P text="Aqui hay una plantilla de diagrama de guitarra con las indicaciones del numero de cada cuerda:" />
+            <Guitar.NeckContainer fontSize={10}>
+                <Guitar.Neck
+                    hiddeFretNumbers={true}
+                    fretMarkers={[
+                        { position: [6, 0], text: "6" },
+                        { position: [5, 0], text: "5" },
+                        { position: [4, 0], text: "4" },
+                        { position: [3, 0], text: "3" },
+                        { position: [2, 0], text: "2" },
+                        { position: [1, 0], text: "1" },
+                    ]}
+                />
+            </Guitar.NeckContainer>
+            <NeckTest.Modal
+                useObj={stringTest}
+                title="Cuerdas"
+                description="Reconocer e indicar la cuerda segun el numero correspondiente"
             />
-            <NeckQuestionModal
-            useObj={questionModal_1}
-            title="Cuerdas"
-            description="Reconocer e indicar la cuerda segun el numero correspondiente"
-            />
-        </LSegment>
+        </Lesson.Segment>
     )
 }
 
-function Segment_2() {
+function Segment_2 () {
+    const fretTest = NeckTest.useModal(fretTestQuestions)
     return (
-        <LSegment>
-            <LParagraph text="Para indicar una posicion en el diagrama tenemos que indicar tanto la cuerda como el traste especifico, aqui hay algunos ejemplos:" />
-            <LNeckContainer>
-                <GuitarNeck
-                    label="cuerda 6 traste 3"
-                    neckRange={[0, 5]}
-                    fretMarkers={[{ position: [6, 3] }]}
-                />
-                <GuitarNeck
-                    label="cuerda 1 traste 2"
-                    neckRange={[0, 5]}
-                    fretMarkers={[{ position: [1, 2] }]}
-                />
-            </LNeckContainer>
-
-
-            <LParagraph text="En caso de tocar la cuerda sin presionar ningun traste, se dice que esta siendo tocada al aire:" />
-            <LNeckContainer>
-                <GuitarNeck
-                    label="cuerda 6 al aire"
-                    neckRange={[0, 5]}
-                    fretMarkers={[{ position: [6, 0] }]}
-                />
-                <GuitarNeck
-                    label="cuerda 5 al aire"
-                    neckRange={[0, 5]}
-                    fretMarkers={[{ position: [5, 0] }]}
-                />
-            </LNeckContainer>
-
-            <LParagraph text="Siempre es recomendable fijarse en el rango de trastes que esta representando el diagrama para no interpretar todo de forma desplazada:" />
-            <LNeckContainer>
-                <GuitarNeck
-                    label="diagrama con trastes del 1 al 5"
-                    neckRange={[0, 5]}
-                />
-                <GuitarNeck
-                    label="diagrama con trastes del 4 al 9"
-                    neckRange={[4, 9]}
-                />
-            </LNeckContainer>
-        </LSegment>
-    )
-}
-
-function Segment_3() {
-    const questionModal_3 = useNeckQuestionModal(questions_3)
-    return (
-        <LSegment>
-            <NeckQuestionModal
-            useObj={questionModal_3}
-            title="Lectura de diagramas"
-            description="indicar en el mastil segun un numero de cuerda y traste"
+        <Lesson.Segment>
+            <Text.SubTitle text={"Trastes"}/>
+            <Text.P text="Los trastes son los espacios o huecos entre barras que hay en el mastil, dependiendo la guitarra estas pueden tener en promedio de 20 a 24 trastes:"/>
+            <Alert severity="info">Enrealidad un traste es la barra entre espacio y espacio, pero es mas util pensar en ellos como el espacio antes de la barra</Alert>
+            <Text.ListItem highlight={true} text="Los trastes se numeran de izquierda a derecha"/>
+            <Text.ListItem highlight={true} text="si no se presiona ningun traste se denomina como 'cuerda al aire' o de manera mas informal, un 'traste 0'."/>
+            <Guitar.NeckContainer>
+                <Guitar.Neck/>
+            </Guitar.NeckContainer>
+            <NeckTest.Modal 
+            hiddeFretNumbers={true}
+            useObj={fretTest}
+            title="Trastes"
+            description="Ubicar los trastes segun un numero dado"
             />
-        </LSegment>
+        </Lesson.Segment>
     )
 }
+

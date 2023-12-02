@@ -1,30 +1,33 @@
-import React, { useEffect, useRef, useState } from "react"
-import guitarStyles from "../../styles/guitar.module.css"
+import React, { CSSProperties, useEffect, useRef, useState } from "react"
+import guitarStyles from "@/styles/guitar.module.css"
 import { FretMarker } from "@/interfaces/baseInterfaces"
+import { Box } from "@mui/material"
+import { useTheme } from "@mui/material/styles"
+import { robotoMono } from "@/assets/fonts"
 
 interface GuitarNeckProps {
     label?: string
     frets?: number
     strings?: number
     fretMarkers?: FretMarker[]
-    neckRange?: number[]
+    fretRange?: number[]
     allowAdd?: boolean
     rootNote?: string
+    hiddeFretNumbers?: Boolean
     highlight?: string[]
     setWhenAddMarker?: Function
-    showFretLabels? : boolean
 }
 
-export function GuitarNeck({
+function Neck({
     label,
     strings = 6,
     fretMarkers,
-    neckRange = [0, 12],
+    fretRange = [0, 12],
     allowAdd = false,
     rootNote,
     highlight = [],
     setWhenAddMarker,
-    showFretLabels = true
+    hiddeFretNumbers
 }: GuitarNeckProps) {
     console.log("render")
     const stringRefs = useRef<Array<HTMLDivElement | null>>(
@@ -38,7 +41,7 @@ export function GuitarNeck({
         //agregar texto a cada traste que lo requiera
         const string = stringRefs.current[(fretMarker.position[0] - 1)]
         if (string) {
-            const fret = string.children[fretMarker.position[1] - neckRange[0]]
+            const fret = string.children[fretMarker.position[1] - fretRange[0]]
             if (fret) {
                 let fretMarkerElement = fret.querySelector(`div.${guitarStyles.fretMarker}`)
 
@@ -85,13 +88,6 @@ export function GuitarNeck({
         })
     }
 
-    function resetMarkers() {
-        for (const marker of addedMarkers) {
-            addOrDeleteMarker(marker)
-            setAddedMarkers([])
-        }
-    }
-
     //efectos============================================>
     useEffect(() => {
         if (fretMarkers) {
@@ -128,12 +124,20 @@ export function GuitarNeck({
     }, [addedMarkers])
 
     return (
-        <div className={guitarStyles.neck}>
+        <div className={guitarStyles["neck"]}>
             {
-                label ?
-                    <h5 className={guitarStyles["neck-label"]}>{label}</h5>
+                label ? <h5 className={`${guitarStyles["neck-label"]} ${robotoMono.className}`}>{label}</h5>
                     : null
             }
+            {
+                hiddeFretNumbers ? null
+                    : <div className={guitarStyles["fretNumber-container"]}>
+                        {Array.from({ length: fretRange[1] - fretRange[0] + 1 }).map((_, index) => (
+                            <span key={index} className={guitarStyles["fretNumber"]}>{String(index)}</span>
+                        ))}
+                    </div>
+            }
+
             {/* Crear cuerdas */}
             {Array.from({ length: strings }).map((_, stringIdx) => (
                 <div
@@ -142,20 +146,13 @@ export function GuitarNeck({
                     className={guitarStyles.string}
                 >
                     {/* Crear trastes del mástil */}
-                    {Array.from({ length: (neckRange[1] - neckRange[0]) + 1 }).map((_, fretIdx) => (
+                    {Array.from({ length: (fretRange[1] - fretRange[0]) + 1 }).map((_, fretIdx) => (
                         <div key={fretIdx} className={
                             // agregar estilos del backgraund del traste segun si es una cuerda al aire o no
-                            neckRange[0] == 0 && fretIdx == 0 ?
-                                `${guitarStyles.fret} ${guitarStyles["string-open"]} `
-                                :
-                                `${guitarStyles.fret} ${guitarStyles[`string-fret`]}`
+                            fretRange[0] == 0 && fretIdx == 0 ?
+                                `${guitarStyles.fret} ${guitarStyles["string-open"]}`
+                                : `${guitarStyles.fret} ${guitarStyles[`string-fret`]}`
                         }>
-                            {/* agregar label encima de cada traste indicando su numero*/}
-                            {
-                                showFretLabels && stringIdx == 0 && (fretIdx + neckRange[0]) !== 0 ?
-                                    <div className={guitarStyles.fretNumberLabel}>{fretIdx + neckRange[0]}</div>
-                                    : null
-                            }
                             <div className={`${guitarStyles.fretMarker}`}></div>
                         </div>
                     ))}
@@ -164,4 +161,35 @@ export function GuitarNeck({
         </div>
     );
 }
+
+function NeckContainer(props: { children: React.ReactNode, fontSize?: number }) {
+    const fontSizeProp = props.fontSize || 10
+    const theme = useTheme()
+    const containerStyles: CSSProperties = {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 2,
+        flexWrap: "wrap",
+        fontSize: fontSizeProp,
+        [theme.breakpoints.down("lg")]: {
+            justifyContent: "center", fontSize: Math.floor(fontSizeProp * 0.85)
+        },
+        [theme.breakpoints.down("md")]: {
+            fontSize: Math.floor(fontSizeProp * 0.7)
+        },
+        [theme.breakpoints.down("sm")]: {
+            fontSize: Math.floor(fontSizeProp * 0.55)
+        },
+    }
+
+    return (
+        <Box sx={containerStyles}>
+            {props.children}
+        </Box>
+    )
+}
+
+export default { Neck, NeckContainer }
+
 

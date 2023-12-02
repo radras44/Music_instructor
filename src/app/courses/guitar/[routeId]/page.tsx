@@ -7,16 +7,12 @@ import { useTheme } from "@mui/material/styles";
 import CourseNavbar from "@/components/nav/courseNavbar";
 import useLesson from "@/hooks/useLesson";
 
-
 const course: Course = guitarCourse
 
 export default function GuitarLessons({ params }: { params: { routeId: string } }) {
-    const theme = useTheme()
-    const uplg = useMediaQuery(theme.breakpoints.up("lg"))
     const {current,sectionId} = useLesson(params.routeId)
-
     return (
-        <ThemeContainer maxWidth={"lg"}>
+        <ThemeContainer>
             <Box>
                 {
                     current && sectionId ?

@@ -1,7 +1,7 @@
-import { belongString, isAnOctave } from "@/components/lessonComponents/neckVerMethods";
-import { neckQuestion } from "@/interfaces/baseInterfaces";
+import { belongString, isAnOctave } from "@/components/neckVerMethods";
+import { neckTestQuestion } from "@/interfaces/baseInterfaces";
 
-export const questions_1: neckQuestion[] = [
+export const stringTestQuestions: neckTestQuestion[] = [
     {
         question : "señala cualquier sitio en la 'cuerda 1'",
         solutions : [
@@ -58,11 +58,50 @@ export const questions_1: neckQuestion[] = [
     },
 ]
 
-export const questions_2 : neckQuestion[] = [
-
+export const fretTestQuestions: neckTestQuestion[] = [
+    {
+        question : "selecciona cualquier sitio en el traste 1",
+        solutions : [
+            [
+                {position : [1,1]}
+            ]
+        ]
+    },
+    {
+        question : "selecciona cualquier sitio en el traste 5",
+        solutions : [
+            [
+                {position : [1,5]}
+            ]
+        ]
+    },
+    {
+        question : "selecciona cualquier sitio en el traste 11",
+        solutions : [
+            [
+                {position : [1,11]}
+            ]
+        ]
+    },
+    {
+        question : "selecciona cualquier cuerda al aire",
+        solutions : [
+            [
+                {position : [1,0]}
+            ]
+        ]
+    },
+    {
+        question : "selecciona cualquier sitio en el traste 12",
+        solutions : [
+            [
+                {position : [1,12]}
+            ]
+        ]
+    },
 ]
 
-export const questions_3: neckQuestion[] = [
+export const chartReadingTestQuestions: neckTestQuestion[] = [
     {
         question: "cuerda 1 traste 2",
         solutions: [

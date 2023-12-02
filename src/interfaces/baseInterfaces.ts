@@ -1,3 +1,8 @@
+export interface TextComponent {
+    text : string
+    highlight? : boolean
+}
+
 export interface CourseLesson {
     id : number
     name : string
@@ -13,7 +18,8 @@ export interface CourseSection {
 
 export interface Course {
     pathName : string
-    name : string,
+    name : string
+    url? : string
     sections : CourseSection[]
 }
 
@@ -24,7 +30,7 @@ export interface Statement {
 
 // guitar
 
-export interface neckQuestion {
+export interface neckTestQuestion {
     question: string,
     solutions: FretMarker[][],
     defaultMarkers?: FretMarker[]

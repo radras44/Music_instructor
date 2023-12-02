@@ -42,3 +42,11 @@ export function belongString (response: FretMarker[],solutions : FretMarker[][])
 
     return false
 }
+
+export function belongFret(response: FretMarker[],solution : FretMarker[][]) {
+    const fretSolution = solution[0][0].position[1]
+    if(response.length == 1 && response[0].position[1] === fretSolution){
+        return true
+    }
+    return false
+}

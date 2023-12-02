@@ -6,14 +6,16 @@ import { Book } from "@mui/icons-material";
 import ThemeContainer from "@/components/themes";
 import guitarCourse from "./courses/guitar/Register";
 import { useState } from "react";
-import {LessonLink} from "@/components/lessonComponents/link";
 import { getLessonRoute } from "@/utils/routerUtils";
+import Text from "@/components/Text";
+import { useRouter } from "next/navigation";
 
 const courses: Course[] = [
     guitarCourse
 ]
 
 export default function GuitarTutorials() {
+    const router = useRouter()
     //generate a boolean array to control the collapses (expandable content
     const [collapses, setCollapses] = useState<any[]>(() => {
         //course collapse controls
@@ -51,53 +53,57 @@ export default function GuitarTutorials() {
         }
         )
     }
-
-    return (
-        <ThemeContainer maxWidth="lg">
-            <Grid container>
-                <Grid item xs={12}>
-                    {/* list of courses */}
-                    <List>
-                        {courses.map((course, courseIdx) => (
-                            <Box key={courseIdx}>
-                                <ListItemButton onClick={() => {
-                                    setCourseCollapse(courseIdx)
-                                }}>
-                                    <Typography>{course.name}</Typography>
-                                </ListItemButton>
-                                {/*list of sections */}
-                                <Collapse in={collapses[courseIdx].collapse === true}>
-                                    {
-                                        course.sections.map((section, sectionIdx) => (
-                                            <Box
-                                                key={sectionIdx}
-                                                sx={{ ml: 3 }}
-                                            >
-                                                <ListItemButton onClick={() => {
-                                                    setSectionCollapse(courseIdx, sectionIdx)
-                                                }}>
-                                                    <Typography>{section.name}</Typography>
-                                                </ListItemButton>
-                                                {/*list of lessons */}
-                                                <LessonCollapse
-                                                    course={course}
-                                                    section={section}
-                                                    collapseState={collapses[courseIdx].sections[sectionIdx].collapse}
-                                                />
-                                            </Box>
-                                        ))
-                                    }
-                                </Collapse>
-                            </Box>
-                        ))}
-                    </List>
+    if (courses.length > 1 && courses[0].url) {
+        return (
+            <ThemeContainer >
+                <Grid container>
+                    <Grid item xs={12}>
+                        {/* list of courses */}
+                        <List>
+                            {courses.map((course, courseIdx) => (
+                                <Box key={courseIdx}>
+                                    <ListItemButton onClick={() => {
+                                        setCourseCollapse(courseIdx)
+                                    }}>
+                                        <Typography>{course.name}</Typography>
+                                    </ListItemButton>
+                                    {/*list of sections */}
+                                    <Collapse in={collapses[courseIdx].collapse === true}>
+                                        {
+                                            course.sections.map((section, sectionIdx) => (
+                                                <Box
+                                                    key={sectionIdx}
+                                                    sx={{ ml: 3 }}
+                                                >
+                                                    <ListItemButton onClick={() => {
+                                                        setSectionCollapse(courseIdx, sectionIdx)
+                                                    }}>
+                                                        <Typography>{section.name}</Typography>
+                                                    </ListItemButton>
+                                                    {/*list of lessons */}
+                                                    <LessonCollapse
+                                                        course={course}
+                                                        section={section}
+                                                        collapseState={collapses[courseIdx].sections[sectionIdx].collapse}
+                                                    />
+                                                </Box>
+                                            ))
+                                        }
+                                    </Collapse>
+                                </Box>
+                            ))}
+                        </List>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </ThemeContainer>
-    )
+            </ThemeContainer>
+        )
+    } else {
+        const url = courses[0].url + "S1-L1" || "/coursess/guitar/S1-L1"
+        router.push(url)
+    }
 }
 
-function LessonCollapse({ section, collapseState,course }: { section: CourseSection, collapseState: boolean,course : Course }) {
+function LessonCollapse({ section, collapseState, course }: { section: CourseSection, collapseState: boolean, course: Course }) {
     return (
         <Collapse in={collapseState === true}>
             {
@@ -106,9 +112,9 @@ function LessonCollapse({ section, collapseState,course }: { section: CourseSect
                         key={lessonIdx}
                         sx={{ ml: 3 }}
                     >
-                        <LessonLink
+                        <Text.DescLink
                             icon={<Book />}
-                            link={getLessonRoute(course.pathName,section.id,lesson.id)}
+                            link={getLessonRoute(course.pathName, section.id, lesson.id)}
                             title={lesson.name}
                             description={lesson.description}
                         />

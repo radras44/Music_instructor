@@ -3,8 +3,8 @@ import { getLessonRoute } from "@/utils/routerUtils";
 import { AutoStories, Home } from "@mui/icons-material";
 import { AppBar, Box, Button, Collapse, Drawer, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography } from "@mui/material";
 import Link from "next/link";
-import { useState } from "react";
-
+import { CSSProperties, useState } from "react";
+import {useTheme} from "@mui/material/styles"
 interface CourseNavbarProps {
     course: Course
     currentLesson: CourseLesson
@@ -12,6 +12,7 @@ interface CourseNavbarProps {
 }
 
 export default function CourseNavbar({ course, currentLesson, currentSectionId }: CourseNavbarProps) {
+   
     const [showDrawer, setShowDrawer] = useState<boolean>(false)
     function openDrawer() { setShowDrawer(true) }
     function closeDrawer() { setShowDrawer(false) }
@@ -33,31 +34,48 @@ export default function CourseNavbar({ course, currentLesson, currentSectionId }
             return updated
         })
     }
+    const theme = useTheme()
+    const appBarStyles : CSSProperties = {
+        minHeight : 60,
+        display : "flex",
+        alignItems : "center",
+        flexDirection : "row",
+        [theme.breakpoints.down("md")] : {minHeight : 50}
+    }
+    const lessonNameStyle : CSSProperties = {
+        color : "text.secondary",
+        [theme.breakpoints.down("lg")] : {fontSize : 15},
+        [theme.breakpoints.down("md")] : {fontSize : 14},
+        [theme.breakpoints.down("sm")] : {fontSize : 13,marginRight : 3}
+    }
+
+    const iconStyles = {
+        fontSize : 25,
+        [theme.breakpoints.down("md")] : {fontSize : 22},
+    }
     return (
-        <AppBar sx={{
-            minHeight : 60,
-            display : "flex",
-            alignItems : "center",
-            flexDirection : "row"
-        }}>
+        <AppBar sx={appBarStyles}>
             <Box sx={{flex:1}}>
                 <Link href={"/"}>
                     <Button color="inherit">
-                        <Home fontSize="medium" />
+                        <Home sx={iconStyles}/>
                     </Button>
                 </Link>
                 <Button onClick={openDrawer} color="success">
-                    <AutoStories fontSize="medium" />
+                    <AutoStories sx={iconStyles}/>
                 </Button>
             </Box>
             <Box sx={{flex:1}}>
                 <Typography 
                 align="center" 
                 variant="h6" 
-                sx={{color: "grey.400"}}
+                sx={lessonNameStyle}
                 >{currentLesson.name}</Typography>
             </Box>
-            <Box sx={{flex :1}}>
+            <Box sx={{
+                flex : 1,
+                [theme.breakpoints.down("sm")] : {flex : 0}
+            }}>
 
             </Box>
             {/* drawer content */}

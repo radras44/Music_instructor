@@ -1,21 +1,17 @@
-import { Box, Container, ContainerProps, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-
+import { Container, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import React from "react";
 export const darkTheme = createTheme({
     palette: {
         mode: "dark"
     }
 })
 
-
-
-interface ThemeContainerProps extends ContainerProps { }
-
-export default function ThemeContainer({ children, maxWidth }: ThemeContainerProps) {
+export default function ThemeContainer(props : {children : React.ReactNode}) {
     return (
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
-            <Container maxWidth={maxWidth}>
-                {children}
+            <Container maxWidth="lg" >
+                {props.children}
             </Container>
         </ThemeProvider>
     )

@@ -3,8 +3,7 @@
     flex-direction: column;
     max-width: fit-content;
     align-items: center;
-    font-size: 10px;
-    margin: 4em 2em 1em 2em;
+    font-size: 1em;
 }
 
 .string {
@@ -16,9 +15,22 @@
 
 .neck-label {
     text-align: center;
-    padding-bottom: 3em;
-    font-size: 15px;
-    color: #ccc;
+    font-size: 1.8em;
+    color: #bbb;
+}
+
+
+.fretNumber-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    height: 4em;
+}
+
+.fretNumber {
+   width: 5em;
+   text-align: center;
 }
 
 .fret {
@@ -34,6 +46,8 @@
     border-left: 1px solid #222;
 }
 
+
+
 .string-open {
     border-left:1px solid #222
 }
@@ -47,7 +61,7 @@
     background-color: #555; 
     transform: translateY(-50%);
     z-index: 50;
-    height: 0.05em;
+    height: 1px;
 }
 
 .string-fret::before {
@@ -59,7 +73,7 @@
     background-color: #888; 
     transform: translateY(-50%);
     z-index: 50;
-    height: 0.1em;
+    height: 1px;
 }
 
 .fretMarker {
@@ -98,9 +112,3 @@
     color: #111111;
     font-weight: 800;
 }
-
-.fretNumberLabel {
-    position: absolute;
-    top: -30px;
-}
-
