@@ -1,0 +1,237 @@
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[5].oneOf[2].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[5].oneOf[2].use[2]!./node_modules/next/font/google/target.css?{"path":"src\\assets\\fonts.ts","import":"Roboto_Mono","arguments":[{"subsets":["latin"],"weight":"600"}],"variableName":"robotoMono"} ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/* cyrillic-ext */
+@font-face {
+  font-family: '__Roboto_Mono_e30fb7';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/_next/static/media/9e6c5e7df894b898-s.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: '__Roboto_Mono_e30fb7';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/_next/static/media/6ad831c0cf8ebf88-s.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: '__Roboto_Mono_e30fb7';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/_next/static/media/fb1d45ce7ae5aa88-s.woff2) format('woff2');
+  unicode-range: U+0370-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: '__Roboto_Mono_e30fb7';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/_next/static/media/d4acaaaefcf86ce3-s.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: '__Roboto_Mono_e30fb7';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/_next/static/media/53ac3ede405ad91e-s.woff2) format('woff2');
+  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: '__Roboto_Mono_e30fb7';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/_next/static/media/39f710ba1ef8c1a9-s.p.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}@font-face {font-family: '__Roboto_Mono_Fallback_e30fb7';src: local("Arial");ascent-override: 77.08%;descent-override: 19.93%;line-gap-override: 0.00%;size-adjust: 135.95%
+}.__className_e30fb7 {font-family: '__Roboto_Mono_e30fb7', '__Roboto_Mono_Fallback_e30fb7';font-weight: 600;font-style: normal
+}
+
+/*!**********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[5].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[5].oneOf[7].use[3]!./src/styles/guitar.module.css ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************/
+.guitar_neck__64oen { 
+    display: flex;
+    flex-direction: column;
+    max-width: -moz-fit-content;
+    max-width: fit-content;
+    align-items: center;
+    font-size: 1em;
+}
+
+.guitar_string__j9vdB {
+    display: flex;
+    flex-direction: row;
+    height: 4em;
+    max-width: 100% ;
+}
+
+.guitar_neck-label__5hzrs {
+    text-align: center;
+    font-size: 1.8em;
+    color: #bbb;
+}
+
+
+.guitar_fretNumber-container__uS_vu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    height: 4em;
+}
+
+.guitar_fretNumber__sEtLk {
+   width: 5em;
+   text-align: center;
+}
+
+.guitar_fret__QLf__ {
+    position: relative;
+    width: 5em;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #111111;
+    border-right: 1px solid #111;
+    border-left: 1px solid #222;
+}
+
+
+
+.guitar_string-open__kFXTW {
+    border-left:1px solid #222
+}
+
+.guitar_string-open__kFXTW::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 10%;
+    background-color: #555; 
+    transform: translateY(-50%);
+    z-index: 50;
+    height: 1px;
+}
+
+.guitar_string-fret__QFpx_::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    background-color: #888; 
+    transform: translateY(-50%);
+    z-index: 50;
+    height: 1px;
+}
+
+.guitar_fretMarker__mpvCi {
+    display: none;
+    width: auto;
+    background-color: #333;
+    height: 90%;
+    border-radius: 50%;
+    aspect-ratio: 1/1;   
+    color: #ccc;
+    font-weight: 500;
+    z-index: 51;
+    font-size: 0.8rem;
+}
+
+.guitar_fretMarker_active__sEpsZ {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.guitar_fretMarker-root__Vgegp {
+    background-color: var(--red);
+    color: #111111;
+    font-weight: 800;
+}
+
+.guitar_fretMarker-highlight__aZZsy {
+    background-color: var(--green);
+    color: #111111;
+    font-weight: 800;
+}
+
+.guitar_fretMarker-added__twz3x {
+    background-color: var(--green);
+    color: #111111;
+    font-weight: 800;
+}
+
+/*!*************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[5].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[5].oneOf[7].use[3]!./src/styles/indicator.module.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************/
+.indicator_container__ZetXv {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin: 20px 0px 20px 0px;
+}
+.indicator_label___F1WQ {
+    position: relative;
+    margin: 20px 0px 20px 60px;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #aaa;
+}
+
+.indicator_label___F1WQ::before {
+    position: absolute;
+    content: "";
+    top: 50%;
+    background-color: var(--green);
+    width: 10px;
+    height: 4px;
+    left: -35px;
+    border-radius: 10%;
+}
+
+.indicator_indicator-container__aaVIJ {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.indicator_indicator__Zpv43 {
+    height: 40px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #222;
+    border: 1px solid black;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaaaaa;
+}
+.indicator_indicator-text__3JJRp {
+    font-size: 0.8rem;
+    font-weight:800;
+}
+
+.indicator_indicator--active__2WBWH {
+    background-color: var(--green);
+    color: black;
+}
+
+

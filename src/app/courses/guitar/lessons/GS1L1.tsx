@@ -1,3 +1,4 @@
+"use client"
 import Guitar from "@/components/Guitar";
 import { chartReadingTestQuestions, stringTestQuestions,fretTestQuestions } from "./GS1L1Q";
 import Lesson from "@/components/Lesson";
