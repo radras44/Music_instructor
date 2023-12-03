@@ -1,5 +1,5 @@
 import { Course} from "@/interfaces/baseInterfaces";
-import GS1L1 from "./lessons/GS1L1";
+import GS1L1 from "./S1-L1/page";
 
 const guitarCourse : Course = {
     name : "Curso de guitarra",
@@ -14,7 +14,11 @@ const guitarCourse : Course = {
                     name : "Conceptos indispensables",
                     id : 1,
                     description : "repaso de algunos conceptos obligatorios que debes saber antes de continuar con las siguientes lecciones",
-                    component : <GS1L1/>
+                },
+                {
+                    name : "Conceptos indispensables 2",
+                    id : 2,
+                    description : "repaso de algunos conceptos obligatorios que debes saber antes de continuar con las siguientes lecciones",
                 },
             ]
         },

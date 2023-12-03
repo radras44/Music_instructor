@@ -1,3 +1,4 @@
+"use client"
 import { Course, CourseLesson, CourseSection } from "@/interfaces/baseInterfaces";
 import { getLessonRoute } from "@/utils/routerUtils";
 import { AutoStories, Home, KeyboardArrowDown, KeyboardArrowRight } from "@mui/icons-material";
@@ -5,21 +6,22 @@ import { AppBar, Box, Button, Collapse, Drawer, List, ListItem, ListItemButton, 
 import Link from "next/link";
 import { CSSProperties, useState } from "react";
 import {useTheme} from "@mui/material/styles"
+import useLesson from "@/hooks/useLesson";
+import { usePathname, useRouter } from "next/navigation";
 interface CourseNavbarProps {
-    course: Course
-    currentLesson: CourseLesson
-    currentSectionId: number
+    courseReg: Course
 }
 
-export default function CourseNavbar({ course, currentLesson, currentSectionId }: CourseNavbarProps) {
-   
+export default function CourseNavbar({ courseReg}: CourseNavbarProps) {
+    const pathName = usePathname()
     const [showDrawer, setShowDrawer] = useState<boolean>(false)
+    const {lessonName,lessonNumber,sectionNumber} = useLesson(pathName)
     function openDrawer() { setShowDrawer(true) }
     function closeDrawer() { setShowDrawer(false) }
 
     const [collapses, setCollapses] = useState<boolean[]>(() => {
-        const arr = new Array(course.sections.length).fill(false)
-        const currentSectionIdx = course.sections.findIndex(section => section.id === currentSectionId)
+        const arr = new Array(courseReg.sections.length).fill(false)
+        const currentSectionIdx = courseReg.sections.findIndex(section => section.id === sectionNumber)
         if (currentSectionIdx !== undefined) {
             arr[currentSectionIdx] = true
         }
@@ -73,7 +75,7 @@ export default function CourseNavbar({ course, currentLesson, currentSectionId }
                 align="center" 
                 variant="h6" 
                 sx={lessonNameStyle}
-                >{currentLesson.name}</Typography>
+                >{lessonName}</Typography>
             </Box>
             <Box sx={{
                 flex : 1,
@@ -85,7 +87,7 @@ export default function CourseNavbar({ course, currentLesson, currentSectionId }
             <Drawer open={showDrawer} onClose={closeDrawer} anchor="left">
                 <List>
                     {
-                        course.sections.map((section, index) => (
+                        courseReg.sections.map((section, index) => (
                             <Box key={index} >
                                 <ListItemButton sx={DrawerLIStyles}
                                     onClick={() => {
@@ -103,7 +105,7 @@ export default function CourseNavbar({ course, currentLesson, currentSectionId }
                                         {section.lessons.map((lesson, lindex) => (
                                             <Box key={lindex}>
                                                 <Link href={getLessonRoute("guitar", section.id, lesson.id)}>
-                                                    <ListItemButton selected={lesson.name === currentLesson.name}>
+                                                    <ListItemButton selected={lesson.name === lessonName}>
                                                         <Typography variant="subtitle2">{lesson.name}</Typography>
                                                     </ListItemButton>
                                                 </Link>

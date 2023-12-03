@@ -8,7 +8,7 @@ import guitarCourse from "./courses/guitar/Register";
 import { CSSProperties, useEffect, useState } from "react";
 import { getLessonRoute } from "@/utils/routerUtils";
 import Text from "@/components/Text";
-import { redirect } from "next/navigation"
+
 
 
 const courses: Course[] = [

@@ -7,7 +7,6 @@ export interface CourseLesson {
     id : number
     name : string
     description : string
-    component : JSX.Element
 }
 
 export interface CourseSection {
