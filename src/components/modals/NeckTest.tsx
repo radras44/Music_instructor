@@ -2,10 +2,11 @@ import { neckTestQuestion, FretMarker } from "@/interfaces/baseInterfaces"
 import MuiModal from "@mui/material/Modal"
 import { CheckCircle, HorizontalRule, Check, Clear } from "@mui/icons-material"
 import { ButtonProps, Box, Paper, Button, Typography, Fade, Card, Pagination } from "@mui/material"
-import { useState, useEffect, CSSProperties } from "react"
+import { useState, useEffect, CSSProperties, useRef } from "react"
 import Guitar from "../Guitar"
 import styles from "@/styles/styles"
-import {useTheme} from "@mui/material/styles"
+import { SxProps, useTheme } from "@mui/material/styles"
+import guitarStyles from "@/styles/guitar.module.css"
 
 interface TestModalButtonProps extends ButtonProps {
     title: string
@@ -16,18 +17,18 @@ interface TestModalButtonProps extends ButtonProps {
 function TestButton({ onClick, title, questionNum, description }: TestModalButtonProps) {
     const theme = useTheme()
     const titleStyles: CSSProperties = {
-        color : "primary.main",
-        [theme.breakpoints.down("md")] : {fontSize : 14}
+        color: "primary.main",
+        [theme.breakpoints.down("md")]: { fontSize: 14 }
     }
     const DescStyles: CSSProperties = {
-        color : "text.secondary",
-        [theme.breakpoints.down("md")] : {fontSize : 12}
+        color: "text.secondary",
+        [theme.breakpoints.down("md")]: { fontSize: 12 }
     }
     const itemNumberStyles: CSSProperties = {
-        color : "grey.400",
-        fontSize : 12,
-        [theme.breakpoints.down("md")] : {fontSize : 10}
-    } 
+        color: "grey.400",
+        fontSize: 12,
+        [theme.breakpoints.down("md")]: { fontSize: 10 }
+    }
     const buttonStyles = {
         flex: 1, display: "flex", flexDirection: "column", alignItems: "center",
         p: 3, textTransform: "lowercase", gap: 1, width: "100%"
@@ -68,9 +69,6 @@ function useModal(questions: neckTestQuestion[]): useQuestionModalReturn {
     return { show, open, close, questions }
 }
 
-
-
-
 interface QuestionParams {
     checkResult: boolean | null
     questionNumber: number
@@ -82,38 +80,36 @@ interface QuestionModalProps {
     title: string
     description: string
     useObj: useQuestionModalReturn
-    hiddeFretNumbers? : boolean
+    hiddeFretNumbers?: boolean
 }
 
-function Modal({ useObj, title, description,hiddeFretNumbers }: QuestionModalProps) {
+function Modal({ useObj, title, description, hiddeFretNumbers }: QuestionModalProps) {
     const [testParams, setTestParams] = useState<QuestionParams>({
         checkResult: null,
         questionNumber: 0,
         finalized: false
     })
+    const neckContainerRef = useRef<HTMLDivElement>(null)
     const [currentQuestion, setCurrentQuestion] = useState<neckTestQuestion>(useObj.questions[0])
     const [selectedFrets, setSelectedFrets] = useState<FretMarker[]>([])
-    const [showNeck, setShowNeck] = useState<boolean>(true)
 
     //fades
     const [iconFade, setIconFade] = useState<boolean>(true)
     const [contentFade, setContentFade] = useState<boolean>(true)
 
     function nextQuestion() {
-        if (testParams.checkResult === true) {
-            if (testParams.questionNumber < (useObj.questions.length - 1)) {
-                let newQuestionNumber = testParams.questionNumber + 1
-                setTestParams(prevParams => ({
-                    ...prevParams,
-                    questionNumber: newQuestionNumber,
-                    checkResult: null,
-                }));
-                //ejecutar fade
-                setCurrentQuestion(useObj.questions[newQuestionNumber])
-                setSelectedFrets([])
-            } else {
-                setTestParams(prevState => ({ ...prevState, finalized: true }))
-            }
+        if (testParams.questionNumber < (useObj.questions.length - 1)) {
+            let newQuestionNumber = testParams.questionNumber + 1
+            setTestParams(prevParams => ({
+                ...prevParams,
+                questionNumber: newQuestionNumber,
+                checkResult: null,
+            }));
+            //ejecutar fade
+            setCurrentQuestion(useObj.questions[newQuestionNumber])
+            setSelectedFrets([])
+        } else {
+            setTestParams(prevState => ({ ...prevState, finalized: true }))
         }
     }
 
@@ -128,12 +124,7 @@ function Modal({ useObj, title, description,hiddeFretNumbers }: QuestionModalPro
             result = currentQuestion.verificationMethod(selectedFrets, currentQuestion.solutions)
         }
 
-        //aplicar animacion para cambiar a la siguiente pregunta en caso de estar corracta
-        setIconFade(false);
-        setTimeout(() => {
-            setIconFade(true);
-        }, 10);
-
+        //aplicar animacion para cambiar a la siguiente pregunta en caso de estar corracta => useEffect
         setTestParams({
             ...testParams,
             checkResult: result,
@@ -143,23 +134,32 @@ function Modal({ useObj, title, description,hiddeFretNumbers }: QuestionModalPro
     useEffect(() => {
         if (testParams.checkResult === true) {
             const animateTransition = async () => {
-                await new Promise((resolve) => setTimeout(resolve, 400))
+                await new Promise((resolve) => setTimeout(resolve, 200))
                 setContentFade(false);
-
                 await new Promise((resolve) => setTimeout(resolve, contentFadeTime));
-
-                setShowNeck(false);
                 nextQuestion();
-
                 await new Promise((resolve) => setTimeout(resolve, 100));
-
-                setShowNeck(true);
                 setContentFade(true);
             };
 
             animateTransition();
         }
     }, [testParams.checkResult]);
+
+    const evalButtonStyles: SxProps = {
+        fontSize: 15,
+        pl: 4,
+        pr: 4,
+    }
+
+    const panelBoxStyles: SxProps = {
+        display: "flex",
+        flexWrap: "nowrap",
+        gap: 4,
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+    }
 
     return (
         <Box>
@@ -181,7 +181,9 @@ function Modal({ useObj, title, description,hiddeFretNumbers }: QuestionModalPro
                                             sx={{ ...styles.modalContent, minWidth: 600 }}>
                                             <CheckCircle color="success" fontSize="large" />
                                             <Typography variant="h6">Practica finalizada</Typography>
-                                            <Button onClick={() => { useObj.close({}, "backdropClick") }}>Cerrar</Button>
+                                            <Button onClick={() => {
+                                                useObj.close({}, "backdropClick")
+                                            }}>Cerrar</Button>
                                         </Card>
                                         :
                                         // renderizar cuestionario
@@ -197,37 +199,26 @@ function Modal({ useObj, title, description,hiddeFretNumbers }: QuestionModalPro
                                                 />
                                                 <Typography variant="body1">{currentQuestion.question}</Typography>
                                                 {/* mastil */}
-                                                {
-                                                    showNeck ?
-                                                        <Guitar.NeckContainer>
-                                                            <Guitar.Neck
+                                                <Box component="div" ref={neckContainerRef}>
+                                                    <Guitar.NeckContainer>
+                                                        <Guitar.Neck
                                                             hiddeFretNumbers={
                                                                 hiddeFretNumbers ? hiddeFretNumbers : false
                                                             }
-                                                                allowAdd={true}
-                                                                setWhenAddMarker={setSelectedFrets}
-                                                                fretMarkers={
-                                                                    currentQuestion.defaultMarkers ?
-                                                                        currentQuestion.defaultMarkers : []
-                                                                }
-                                                            />
-                                                        </Guitar.NeckContainer>
-                                                        : null
-                                                }
+                                                            allowAddMarkers={true}
+                                                            setWhenAddMarker={setSelectedFrets}
+                                                            cleanWhenChange={currentQuestion}
+                                                            fretMarkers={
+                                                                currentQuestion.defaultMarkers ?
+                                                                    currentQuestion.defaultMarkers : []
+                                                            }
+                                                        />
+                                                    </Guitar.NeckContainer>
+                                                </Box>
                                                 {/* panel */}
-                                                <Box sx={{
-                                                    ...styles.Hcontainer,
-                                                    gap: 4,
-                                                    justifyContent: "center",
-                                                    alignItems: "center",
-                                                    width: "100%",
-                                                }}>
+                                                <Box sx={panelBoxStyles}>
                                                     <Button
-                                                        sx={{
-                                                            fontSize: 15,
-                                                            pl: 4,
-                                                            pr: 4,
-                                                        }}
+                                                        sx={evalButtonStyles}
                                                         color={
                                                             testParams.checkResult === null ? "inherit" :
                                                                 testParams.checkResult === true ? "success" : "error"
@@ -258,5 +249,7 @@ function Modal({ useObj, title, description,hiddeFretNumbers }: QuestionModalPro
     )
 }
 
-export default { Modal, useModal, TestButton }
+
+
+export default { Modal, useModal }
 

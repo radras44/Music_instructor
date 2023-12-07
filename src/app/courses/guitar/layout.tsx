@@ -1,7 +1,7 @@
 "use client"
 
 import CourseNavbar from "@/components/nav/courseNavbar"
-import ThemeContainer from "@/components/themes"
+import ThemeContainer from "@/themes"
 import register from "./Register"
 
 export default function layout ({children} : {children : React.ReactNode}) {

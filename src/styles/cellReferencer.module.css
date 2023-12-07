@@ -1,8 +1,7 @@
 .container {
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    margin: 20px 0px 20px 0px;
+    gap : 8px;
 }
 .label {
     position: relative;
@@ -23,16 +22,17 @@
     border-radius: 10%;
 }
 
-.indicator-container {
+.cellReferencer-container {
     display: flex;
     flex-direction: row;
     align-items: center;
-    flex-wrap: wrap;
+    gap : 1em;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    touch-action: pan-x;
 }
-.indicator {
-    height: 40px;
-    margin-left: 10px;
-    margin-right: 10px;
+.cell {
+    height: 2.5em;
     background-color: #222;
     border: 1px solid black;
     border-radius: 50%;
@@ -42,13 +42,20 @@
     justify-content: center;
     color: #aaaaaa;
 }
-.indicator-text {
-    font-size: 0.8rem;
+.cell-text {
+    font-size: 0.8em;
     font-weight:800;
 }
 
-.indicator--active {
-    background-color: var(--green);
-    color: black;
+@media screen and (max-width : 900px) {
+    .cellReferencer-container {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width : 600px) {
+    .cellReferencer-container {
+        font-size: 12px;
+    }
 }
 

@@ -6,7 +6,7 @@ import { AppBar, Box, Button, Collapse, Drawer, List, ListItem, ListItemButton, 
 import Link from "next/link";
 import { CSSProperties, useState } from "react";
 import {useTheme} from "@mui/material/styles"
-import useLesson from "@/hooks/useLesson";
+import {useLesson} from "@/hooks/useLesson";
 import { usePathname, useRouter } from "next/navigation";
 interface CourseNavbarProps {
     courseReg: Course
@@ -45,6 +45,7 @@ export default function CourseNavbar({ courseReg}: CourseNavbarProps) {
         [theme.breakpoints.down("md")] : {minHeight : 50}
     }
     const lessonNameStyle : CSSProperties = {
+        whiteSpace : "nowrap",
         color : "text.secondary",
         [theme.breakpoints.down("lg")] : {fontSize : 15},
         [theme.breakpoints.down("md")] : {fontSize : 14},
@@ -60,7 +61,7 @@ export default function CourseNavbar({ courseReg}: CourseNavbarProps) {
     }
     return (
         <AppBar sx={appBarStyles}>
-            <Box sx={{flex:1}}>
+            <Box sx={{flex:1,display : "flex",flexDirection : "row",flexWrap : "nowrap"}}>
                 <Link href={"/"}>
                     <Button color="inherit">
                         <Home sx={iconStyles}/>
@@ -104,7 +105,7 @@ export default function CourseNavbar({ courseReg}: CourseNavbarProps) {
                                     }}>
                                         {section.lessons.map((lesson, lindex) => (
                                             <Box key={lindex}>
-                                                <Link href={getLessonRoute("guitar", section.id, lesson.id)}>
+                                                <Link onClick={closeDrawer} href={getLessonRoute("guitar", section.id, lesson.id)}>
                                                     <ListItemButton selected={lesson.name === lessonName}>
                                                         <Typography variant="subtitle2">{lesson.name}</Typography>
                                                     </ListItemButton>

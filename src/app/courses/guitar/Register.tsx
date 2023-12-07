@@ -11,18 +11,29 @@ const guitarCourse : Course = {
             id : 1,
             lessons: [
                 {
-                    name : "Conceptos indispensables",
+                    name : "Lectura de diagramas de mastil",
                     id : 1,
-                    description : "repaso de algunos conceptos obligatorios que debes saber antes de continuar con las siguientes lecciones",
+                    description : "",
                 },
                 {
-                    name : "Conceptos indispensables 2",
+                    name : "Notas musicales, alteraciones y semitonos",
                     id : 2,
-                    description : "repaso de algunos conceptos obligatorios que debes saber antes de continuar con las siguientes lecciones",
+                    description : "Notas musicales y semitonos",
                 },
+                // {
+                //     name : "Unidades de tiempo",
+                //     id : 3,
+                //     description : "",
+                // },
             ]
         },
-      
+        // {
+        //     name : "Comenzando a interpretar",
+        //     id : 2,
+        //     lessons : [
+
+        //     ]
+        // }
     ]
 }
 

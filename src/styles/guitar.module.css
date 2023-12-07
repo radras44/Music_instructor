@@ -13,7 +13,7 @@
     max-width: 100% ;
 }
 
-.neck-label {
+.neck-name {
     text-align: center;
     font-size: 1.8em;
     color: #bbb;
@@ -46,8 +46,6 @@
     border-left: 1px solid #222;
 }
 
-
-
 .string-open {
     border-left:1px solid #222
 }
@@ -79,36 +77,20 @@
 .fretMarker {
     display: none;
     width: auto;
-    background-color: #333;
     height: 90%;
     border-radius: 50%;
     aspect-ratio: 1/1;   
     color: #ccc;
     font-weight: 500;
     z-index: 51;
-    font-size: 0.8rem;
+    font-size: 1.4em;
 }
 
 .fretMarker_active {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.fretMarker-root {
-    background-color: var(--red);
     color: #111111;
     font-weight: 800;
 }
-
-.fretMarker-highlight {
-    background-color: var(--green);
-    color: #111111;
-    font-weight: 800;
-}
-
-.fretMarker-added {
-    background-color: var(--green);
-    color: #111111;
-    font-weight: 800;
-}
+    

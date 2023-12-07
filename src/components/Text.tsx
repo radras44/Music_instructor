@@ -1,11 +1,11 @@
 import { robotoMono } from "@/assets/fonts"
 import { TextComponent } from "@/interfaces/baseInterfaces"
 import { LabelImportant } from "@mui/icons-material"
-import { Box, ListItemButton, ListItemIcon, Typography, useTheme } from "@mui/material"
+import { Box, ListItemButton, ListItemIcon, SxProps, Typography, useTheme } from "@mui/material"
 import { green, lightGreen } from "@mui/material/colors"
 import Link from "next/link"
 import { CSSProperties } from "react"
-
+import MUILink from "@mui/material/Link"
 function HighLighter({ text }: { text: string }) {
     const textArray: string[] = text.split("'")
     const textStyles: CSSProperties = {
@@ -131,5 +131,19 @@ function DescLink({ title, link = "#", icon, description }: OListItemProps) {
     )
 }
 
-export default { HighLighter, ListItem, DescLink, P, Title, SubTitle }
+function SimpleLink (props : {text : string,href : string}) {
+    const theme = useTheme()
+
+    const linkStyles : SxProps = {
+        whiteSpace : "nowrap",
+        [theme.breakpoints.down("md")] : {fontSize : 14},
+        [theme.breakpoints.down("sm")] : {fontSize : 13}
+    }
+
+    return (
+        <MUILink sx={linkStyles} href={props.href}>{props.text}</MUILink>
+    )
+}
+
+export default { HighLighter, ListItem, DescLink, P, Title, SubTitle,SimpleLink }
 

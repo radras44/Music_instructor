@@ -3,10 +3,11 @@ export interface TextComponent {
     highlight? : boolean
 }
 
-export interface CourseLesson {
-    id : number
+export interface Course {
+    pathName : string
     name : string
-    description : string
+    url? : string
+    sections : CourseSection[]
 }
 
 export interface CourseSection {
@@ -15,11 +16,10 @@ export interface CourseSection {
     lessons : CourseLesson[]
 }
 
-export interface Course {
-    pathName : string
+export interface CourseLesson {
+    id : number
     name : string
-    url? : string
-    sections : CourseSection[]
+    description : string
 }
 
 export interface Statement {
