@@ -116,12 +116,14 @@ function Modal({ useObj, title, description, hiddeFretNumbers }: QuestionModalPr
     function check() {
         const selectedFretString = JSON.stringify(selectedFrets)
 
+        let result = null
         //aplicar metodo de verificacion
-        let result = currentQuestion.solutions.some((solution: FretMarker[]) => {
-            return selectedFretString === JSON.stringify(solution);
-        });
         if (currentQuestion.verificationMethod) {
             result = currentQuestion.verificationMethod(selectedFrets, currentQuestion.solutions)
+        }else{
+            result = currentQuestion.solutions.some((solution: FretMarker[]) => {
+                return selectedFretString === JSON.stringify(solution);
+            });
         }
 
         //aplicar animacion para cambiar a la siguiente pregunta en caso de estar corracta => useEffect

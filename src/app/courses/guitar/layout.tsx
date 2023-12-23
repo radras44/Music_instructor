@@ -1,15 +1,19 @@
 "use client"
 
-import CourseNavbar from "@/components/nav/courseNavbar"
 import ThemeContainer from "@/themes"
 import register from "./Register"
+import { AvTimer } from "@mui/icons-material"
+import Course from "@/components/course"
 
 export default function layout ({children} : {children : React.ReactNode}) {
     return (
         <ThemeContainer>
             {
-            <CourseNavbar
+            <Course.Navbar
             courseReg={register}
+            additionalNavElements={[
+                {icon : <AvTimer/>,href : "/courses/guitar/tuner"}
+            ]}
             />
             }
             {children}

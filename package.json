@@ -23,10 +23,12 @@
     "@types/react-dom": "18.2.6",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.7",
+    "fft-js": "^0.0.12",
     "lodash": "^4.17.21",
     "next": "^13.4.19",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "types-fourier-transform": "^1.1.5",
     "typescript": "5.1.3",
     "use-sound": "^4.0.1"
   }

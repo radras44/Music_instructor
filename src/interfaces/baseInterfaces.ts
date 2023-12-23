@@ -40,3 +40,8 @@ export interface FretMarker {
     position: [number, number]
     text?: string
 }
+
+export interface NavIconElement {
+    icon : JSX.Element
+    href : string
+}

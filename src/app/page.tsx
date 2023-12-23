@@ -11,12 +11,12 @@ import guitar from "public/guitar.jpg"
 import Link from "next/link";
 import { robotoMono } from "@/assets/fonts";
 import { usePoper } from "@/hooks/useLesson";
+import { redirect} from "next/navigation";
 const courses: Course[] = [
     guitarCourse
 ]
 
 export default function App() {
-
     const infoPoper = usePoper("info-poper")
 
     const infoPoperStyles : CSSProperties = {
@@ -38,30 +38,35 @@ export default function App() {
         justifyContent : "center",alignItems : "center"
     }
 
-    return (
-        <ThemeContainer >
-            <Box sx={containerStyles} component="main">
-                {/* list of courses */}
-                <Box sx={titleContainerStyles}>
-                    <Typography className={robotoMono.className} sx={titleStyles} variant="h2" align="center" component="h1" color="primary">
-                        Bienvenido
-                    </Typography>
-                    <Typography variant="subtitle1" component="h2">Cursos de teoria musical aplicada</Typography>
-                    <Button color="secondary" onClick={infoPoper.toggle}>
-                        <Info />
-                    </Button>
-                    <Popper id={infoPoper.id} open={infoPoper.open} anchorEl={infoPoper.anchorEl}>
-                        <Card sx={infoPoperStyles}>
-                            <Typography variant="body1">Esta pagina esta creada solo en base a mi conocimiento y lo que creo que es un buen camino a la hora de incorportar la teoria en cada instrumento musical, no es una guia formal ni un glosario riguroso</Typography>
-                        </Card>
-                    </Popper>
+    if(courses.length == 1){
+        redirect(courses[0].url + "/S1-L1")
+    }else{
+        return (
+            <ThemeContainer >
+                <Box sx={containerStyles} component="main">
+                    {/* list of courses */}
+                    <Box sx={titleContainerStyles}>
+                        <Typography className={robotoMono.className} sx={titleStyles} variant="h2" align="center" component="h1" color="primary">
+                            Bienvenido
+                        </Typography>
+                        <Typography variant="subtitle1" component="h2">Cursos de teoria musical aplicada</Typography>
+                        <Button color="secondary" onClick={infoPoper.toggle}>
+                            <Info />
+                        </Button>
+                        <Popper id={infoPoper.id} open={infoPoper.open} anchorEl={infoPoper.anchorEl}>
+                            <Card sx={infoPoperStyles}>
+                                <Typography variant="body1">Esta pagina esta creada solo en base a mi conocimiento y lo que creo que es un buen camino a la hora de incorportar la teoria en cada instrumento musical, no es una guia formal ni un glosario riguroso</Typography>
+                            </Card>
+                        </Popper>
+                    </Box>
+                    {courses.map((course, courseIdx) => (
+                        <CourseArticle key={courseIdx} course={course} />
+                    ))}
                 </Box>
-                {courses.map((course, courseIdx) => (
-                    <CourseArticle key={courseIdx} course={course} />
-                ))}
-            </Box>
-        </ThemeContainer>
-    )
+            </ThemeContainer>
+        )
+    }
+
 }
 
 interface CourseArticleProps {
@@ -120,6 +125,7 @@ function CourseArticle(props: CourseArticleProps) {
     const buttonStyles: CSSProperties = {
         fontWeight: 600
     }
+ 
     return (
         <Box component="article" sx={containerStyles}>
             <Box sx={textContainerStyles}>

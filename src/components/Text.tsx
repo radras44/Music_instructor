@@ -141,7 +141,7 @@ function SimpleLink (props : {text : string,href : string}) {
     }
 
     return (
-        <MUILink sx={linkStyles} href={props.href}>{props.text}</MUILink>
+        <MUILink target="_blank" sx={linkStyles} href={props.href}>{props.text}</MUILink>
     )
 }
 

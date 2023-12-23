@@ -1,21 +1,33 @@
-"use client"
-import { Course, CourseLesson, CourseSection } from "@/interfaces/baseInterfaces";
-import { getLessonRoute } from "@/utils/routerUtils";
-import { AutoStories, Home, KeyboardArrowDown, KeyboardArrowRight } from "@mui/icons-material";
-import { AppBar, Box, Button, Collapse, Drawer, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography } from "@mui/material";
-import Link from "next/link";
-import { CSSProperties, useState } from "react";
-import {useTheme} from "@mui/material/styles"
-import {useLesson} from "@/hooks/useLesson";
-import { usePathname, useRouter } from "next/navigation";
-interface CourseNavbarProps {
-    courseReg: Course
+import { Box, Stack, Pagination, AppBar, Button, Collapse, Drawer, List, ListItemButton, Typography, useTheme } from "@mui/material"
+import { CSSProperties, useState } from "react"
+import Link from "next/link"
+import { LessonLayoutProps } from "./Lesson"
+import { useLesson } from "@/hooks/useLesson"
+import { Course, NavIconElement } from "@/interfaces/baseInterfaces"
+import { getLessonRoute } from "@/utils/routerUtils"
+import { Home, AutoStories, KeyboardArrowDown, KeyboardArrowRight } from "@mui/icons-material"
+import { usePathname } from "next/navigation"
+
+export function Layout({ children }: { children: React.ReactNode }) {
+    return (
+        <Box sx={{
+            marginTop: 15,
+            marginBottom: 15
+        }}>
+            {children}
+        </Box>
+    )
 }
 
-export default function CourseNavbar({ courseReg}: CourseNavbarProps) {
+interface CourseNavbarProps {
+    courseReg: Course
+    additionalNavElements?: NavIconElement[]
+}
+
+function Navbar({ courseReg, additionalNavElements }: CourseNavbarProps) {
     const pathName = usePathname()
     const [showDrawer, setShowDrawer] = useState<boolean>(false)
-    const {lessonName,lessonNumber,sectionNumber} = useLesson(pathName)
+    const { lessonName, lessonNumber, sectionNumber } = useLesson(pathName)
     function openDrawer() { setShowDrawer(true) }
     function closeDrawer() { setShowDrawer(false) }
 
@@ -37,50 +49,59 @@ export default function CourseNavbar({ courseReg}: CourseNavbarProps) {
         })
     }
     const theme = useTheme()
-    const appBarStyles : CSSProperties = {
-        minHeight : 60,
-        display : "flex",
-        alignItems : "center",
-        flexDirection : "row",
-        [theme.breakpoints.down("md")] : {minHeight : 50}
+    const appBarStyles: CSSProperties = {
+        minHeight: 60,
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "row",
+        [theme.breakpoints.down("md")]: { minHeight: 50 }
     }
-    const lessonNameStyle : CSSProperties = {
-        whiteSpace : "nowrap",
-        color : "text.secondary",
-        [theme.breakpoints.down("lg")] : {fontSize : 15},
-        [theme.breakpoints.down("md")] : {fontSize : 14},
-        [theme.breakpoints.down("sm")] : {fontSize : 13,marginRight : 3}
+    const lessonNameStyle: CSSProperties = {
+        whiteSpace: "nowrap",
+        color: "text.secondary",
+        [theme.breakpoints.down("lg")]: { fontSize: 15 },
+        [theme.breakpoints.down("md")]: { fontSize: 14 },
+        [theme.breakpoints.down("sm")]: { fontSize: 13, marginRight: 3 }
     }
 
     const iconStyles = {
-        fontSize : 25,
-        [theme.breakpoints.down("md")] : {fontSize : 22},
+        fontSize: 25,
+        [theme.breakpoints.down("md")]: { fontSize: 22 },
     }
-    const DrawerLIStyles : CSSProperties = {
-        display:"flex",gap:1
+    const DrawerLIStyles: CSSProperties = {
+        display: "flex", gap: 1
     }
     return (
         <AppBar sx={appBarStyles}>
-            <Box sx={{flex:1,display : "flex",flexDirection : "row",flexWrap : "nowrap"}}>
+            <Box sx={{ flex: 1, display: "flex", flexDirection: "row", flexWrap: "nowrap" }}>
                 <Link href={"/"}>
                     <Button color="inherit">
-                        <Home sx={iconStyles}/>
+                        <Home sx={iconStyles} />
                     </Button>
                 </Link>
                 <Button onClick={openDrawer} color="secondary">
-                    <AutoStories sx={iconStyles}/>
+                    <AutoStories sx={iconStyles} />
                 </Button>
+                {additionalNavElements &&
+                    additionalNavElements.map((element, index) => (
+                        <Link key={index} href={element.href}>
+                            <Button>
+                                {element.icon}
+                            </Button>
+                        </Link>
+                    ))
+                }
             </Box>
-            <Box sx={{flex:1}}>
-                <Typography 
-                align="center" 
-                variant="h6" 
-                sx={lessonNameStyle}
+            <Box sx={{ flex: 1 }}>
+                <Typography
+                    align="center"
+                    variant="h6"
+                    sx={lessonNameStyle}
                 >{lessonName}</Typography>
             </Box>
             <Box sx={{
-                flex : 1,
-                [theme.breakpoints.down("sm")] : {flex : 0}
+                flex: 1,
+                [theme.breakpoints.down("sm")]: { flex: 0 }
             }}>
 
             </Box>
@@ -95,8 +116,8 @@ export default function CourseNavbar({ courseReg}: CourseNavbarProps) {
                                         toggleCollapse(index)
                                     }}
                                 >
-                                    {collapses[index] ?  <KeyboardArrowDown/>: <KeyboardArrowRight/>}
-                                   
+                                    {collapses[index] ? <KeyboardArrowDown /> : <KeyboardArrowRight />}
+
                                     <Typography>{section.name}</Typography>
                                 </ListItemButton>
                                 <Collapse in={collapses[index]}>
@@ -122,3 +143,5 @@ export default function CourseNavbar({ courseReg}: CourseNavbarProps) {
         </AppBar>
     )
 }
+
+export default { Layout, Navbar }

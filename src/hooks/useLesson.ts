@@ -5,7 +5,6 @@ import { useState } from "react"
 export function useLesson (pathName : string) {
     const pathSegments = pathName.split("/")
     const routeId = pathSegments[pathSegments.length - 1]
-    console.log(routeId)
     const splited = routeId.split("-")
     if (splited.length >= 2) {
         const sectionNumber = Number(splited[0].substring(1))

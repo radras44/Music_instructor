@@ -1,6 +1,6 @@
 "use client"
 import Guitar from "@/components/Guitar";
-import { chartReadingTestQuestions, stringTestQuestions,fretTestQuestions } from "./GS1L1Q";
+import { chartReadingTestQuestions, stringTestQuestions,fretTestQuestions } from "./questions";
 import Lesson from "@/components/Lesson";
 import { genSegments } from "@/utils/componentUtils";
 import { Alert, Modal, Typography } from "@mui/material";
