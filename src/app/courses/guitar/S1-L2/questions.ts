@@ -7,7 +7,7 @@ export const noteTest1Q : neckTestQuestion[] = [
         verificationMethod : isAnOctave,
         solutions : [
             [
-                {position : [5,4]}
+                {position : [6,0]}
             ]
         ]
     },
@@ -16,7 +16,7 @@ export const noteTest1Q : neckTestQuestion[] = [
         verificationMethod : isAnOctave,
         solutions : [
             [
-                {position : [5,4]}
+                {position : [5,2]}
             ]
         ]
     },
@@ -25,7 +25,7 @@ export const noteTest1Q : neckTestQuestion[] = [
         verificationMethod : isAnOctave,
         solutions : [
             [
-                {position : [5,4]}
+                {position : [6,1]}
             ]
         ]
     },
@@ -34,7 +34,7 @@ export const noteTest1Q : neckTestQuestion[] = [
         verificationMethod : isAnOctave,
         solutions : [
             [
-                {position : [5,4]}
+                {position : [6,5]}
             ]
         ]
     },
@@ -43,7 +43,7 @@ export const noteTest1Q : neckTestQuestion[] = [
         verificationMethod : isAnOctave,
         solutions : [
             [
-                {position : [5,4]}
+                {position : [6,3]}
             ]
         ]
     },
@@ -52,7 +52,7 @@ export const noteTest1Q : neckTestQuestion[] = [
         verificationMethod : isAnOctave,
         solutions : [
             [
-                {position : [5,4]}
+                {position : [5,5]}
             ]
         ]
     },
@@ -61,7 +61,7 @@ export const noteTest1Q : neckTestQuestion[] = [
         verificationMethod : isAnOctave,
         solutions : [
             [
-                {position : [5,4]}
+                {position : [5,3]}
             ]
         ]
     },
@@ -70,7 +70,7 @@ export const noteTest1Q : neckTestQuestion[] = [
         verificationMethod : isAnOctave,
         solutions : [
             [
-                {position : [5,4]}
+                {position : [6,0]}
             ]
         ]
     },
@@ -91,7 +91,7 @@ export const noteTest2Q : neckTestQuestion[] = [
         verificationMethod : isAnOctave,
         solutions : [
             [
-                {position : [5,4]}
+                {position : [5,2]}
             ]
         ]
     },
@@ -100,7 +100,7 @@ export const noteTest2Q : neckTestQuestion[] = [
         verificationMethod : isAnOctave,
         solutions : [
             [
-                {position : [5,4]}
+                {position : [5,0]}
             ]
         ]
     },
@@ -109,7 +109,7 @@ export const noteTest2Q : neckTestQuestion[] = [
         verificationMethod : isAnOctave,
         solutions : [
             [
-                {position : [5,4]}
+                {position : [5,1]}
             ]
         ]
     },
@@ -118,7 +118,7 @@ export const noteTest2Q : neckTestQuestion[] = [
         verificationMethod : isAnOctave,
         solutions : [
             [
-                {position : [5,4]}
+                {position : [6,4]}
             ]
         ]
     },
@@ -127,7 +127,7 @@ export const noteTest2Q : neckTestQuestion[] = [
         verificationMethod : isAnOctave,
         solutions : [
             [
-                {position : [5,4]}
+                {position : [5,6]}
             ]
         ]
     },
@@ -136,7 +136,7 @@ export const noteTest2Q : neckTestQuestion[] = [
         verificationMethod : isAnOctave,
         solutions : [
             [
-                {position : [5,4]}
+                {position : [5,3]}
             ]
         ]
     },
@@ -145,7 +145,7 @@ export const noteTest2Q : neckTestQuestion[] = [
         verificationMethod : isAnOctave,
         solutions : [
             [
-                {position : [5,4]}
+                {position : [4,1]}
             ]
         ]
     },
@@ -154,7 +154,7 @@ export const noteTest2Q : neckTestQuestion[] = [
         verificationMethod : isAnOctave,
         solutions : [
             [
-                {position : [5,4]}
+                {position : [6,1]}
             ]
         ]
     },
@@ -163,7 +163,7 @@ export const noteTest2Q : neckTestQuestion[] = [
         verificationMethod : isAnOctave,
         solutions : [
             [
-                {position : [5,4]}
+                {position : [5,3]}
             ]
         ]
     },
@@ -172,7 +172,7 @@ export const noteTest2Q : neckTestQuestion[] = [
         verificationMethod : isAnOctave,
         solutions : [
             [
-                {position : [5,4]}
+                {position : [5,2]}
             ]
         ]
     },
@@ -181,7 +181,7 @@ export const noteTest2Q : neckTestQuestion[] = [
         verificationMethod : isAnOctave,
         solutions : [
             [
-                {position : [5,4]}
+                {position : [5,5]}
             ]
         ]
     },

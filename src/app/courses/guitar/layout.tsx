@@ -11,9 +11,6 @@ export default function layout ({children} : {children : React.ReactNode}) {
             {
             <Course.Navbar
             courseReg={register}
-            additionalNavElements={[
-                {icon : <AvTimer/>,href : "/courses/guitar/tuner"}
-            ]}
             />
             }
             {children}

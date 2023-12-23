@@ -122,6 +122,22 @@ Estaría bien primero conocer las cuerdas 5 y 6 al aire 'Mi' y 'La'." />
                 />
             </Guitar.NeckContainer>
             <Audio.ListItem filename="La-Si-Do-Re.mp3" />
+            <Text.P text="Finalmente estas son las posiciones que te recomiendo memorizar en un inicio para no tener problemas, pero lo ideal seria memorizarla en todo el mastil, aunque ya veras que gracias a otros recursos es muy facil calcular donde se encuentra una nota en cualquier lugar del mastil solo conociendo estas posiciones:"/>
+            <Guitar.NeckContainer>
+            <Guitar.Neck
+                    fretMarkers={[
+                        { position: [6, 0], text: "Mi" },
+                        { position: [6, 1], text: "Fa" },
+                        { position: [6, 3], text: "Sol" },
+                        { position: [6, 5], text: "La" },
+                        { position: [5, 0], text: "La" },
+                        { position: [5, 2], text: "Si" },
+                        { position: [5, 3], text: "Do" },
+                        { position: [5, 5], text: "Re" },
+                        { position: [4, 2], text: "Mi" }
+                    ]}
+                />
+            </Guitar.NeckContainer>
             <NeckTest.Modal
             useObj={noteTest_1}
             title="Notas en la guitarra 1"

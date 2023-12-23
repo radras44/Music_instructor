@@ -60,8 +60,8 @@ function Navbar({ courseReg, additionalNavElements }: CourseNavbarProps) {
         whiteSpace: "nowrap",
         color: "text.secondary",
         [theme.breakpoints.down("lg")]: { fontSize: 15 },
-        [theme.breakpoints.down("md")]: { fontSize: 14 },
-        [theme.breakpoints.down("sm")]: { fontSize: 13, marginRight: 3 }
+        [theme.breakpoints.down("md")]: { display : "none",position:"absolute" },
+
     }
 
     const iconStyles = {
@@ -71,6 +71,7 @@ function Navbar({ courseReg, additionalNavElements }: CourseNavbarProps) {
     const DrawerLIStyles: CSSProperties = {
         display: "flex", gap: 1
     }
+
     return (
         <AppBar sx={appBarStyles}>
             <Box sx={{ flex: 1, display: "flex", flexDirection: "row", flexWrap: "nowrap" }}>
