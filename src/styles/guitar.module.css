@@ -6,20 +6,11 @@
     font-size: 1em;
 }
 
-.string {
-    display: flex;
-    flex-direction: row;
-    height: 4em;
-    max-width: 100% ;
-}
-
 .neck-name {
     text-align: center;
     font-size: 1.8em;
     color: #bbb;
 }
-
-
 .fretNumber-container {
     display: flex;
     flex-direction: row;
@@ -32,6 +23,13 @@
    width: 5em;
    text-align: center;
 }
+.string {
+    display: flex;
+    flex-direction: row;
+    height: 4em;
+    max-width: 100% ;
+}
+
 
 .fret {
     position: relative;
@@ -50,7 +48,7 @@
     border-left:1px solid #222
 }
 
-.string-open::before {
+.string-fret-open::before {
     content: "";
     position: absolute;
     top: 50%;
@@ -62,7 +60,7 @@
     height: 1px;
 }
 
-.string-fret::before {
+.string-fret-close::before {
     content: "";
     position: absolute;
     top: 50%;

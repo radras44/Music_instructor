@@ -3,6 +3,7 @@ import { CSSProperties, useEffect, useRef, useState } from "react";
 import cellReferencerStyles from "../styles/cellReferencer.module.css"
 import { useTheme } from "@mui/material/styles"
 import { grey, lightGreen, orange } from "@mui/material/colors";
+import { darkTheme } from "@/theme";
 export interface LessonLayoutProps {
     segments: JSX.Element[]
 }
@@ -56,20 +57,17 @@ interface LessonCellProps {
     highlight?: string[],
     customList?: string[]
     limit?: number
-    label?: string
     root?: string
     altType?: "b" | "#"
-    align?: "center" | "start" | "end"
 }
 export function CellReferencer({
-    label,
     highlight = [],
     altType = "#",
     listType = "notes",
     customList = [],
     limit = 12,
     root,
-    align = "start" }: LessonCellProps) {
+}: LessonCellProps) {
     const lists = {
         notes: ["Do", "Do#", "Re", "Re#", "Mi", "Fa", "Fa#", "Sol", "Sol#", "La", "La#", "Si", "Do"],
         intervals: ["1", "b2", "2", "b3", "3", "4", "#4", "5", "b6", "6", "b7", "7", "8"],
@@ -96,12 +94,12 @@ export function CellReferencer({
                     const child : ChildNode | null = cell.firstChild
                     if(child && child.textContent){
                         if(highlight.includes(child.textContent)){
-                            cell.style.background = `${lightGreen[400]}`
-                            cell.style.color = `black`
+                            cell.style.background = darkTheme.palette.primary.main
+                            cell.style.color = darkTheme.palette.grey["900"]
                         }
                         else if(root == child.textContent){
-                            cell.style.background = `${orange[400]}`
-                            cell.style.color = `black`
+                            cell.style.background = darkTheme.palette.secondary.main
+                            cell.style.color = darkTheme.palette.grey["50"]
                         }
                         else{
                             cell.style.border = `1px solid ${grey[700]}`

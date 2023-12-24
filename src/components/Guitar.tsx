@@ -1,22 +1,23 @@
-import React, { CSSProperties, useEffect, useRef, useState } from "react"
+import React, { CSSProperties, useEffect, useMemo, useRef, useState } from "react"
 import guitarStyles from "@/styles/guitar.module.css"
 import { FretMarker } from "@/interfaces/baseInterfaces"
 import { Box } from "@mui/material"
 import { useTheme } from "@mui/material/styles"
 import { robotoMono } from "@/assets/fonts"
 import { blue, blueGrey, green, grey, lightGreen, orange } from "@mui/material/colors"
+import { darkTheme } from "@/theme"
 
 interface GuitarNeckProps {
     hiddeFretNumbers?: Boolean
-    fretRange?: {min : number,max:number},
+    fretRange?: { min: number, max: number },
     name?: string
     stringNum?: number
-    allowAddMarkers? : boolean
-    fretMarkers? : FretMarker[]
+    allowAddMarkers?: boolean
+    fretMarkers?: FretMarker[]
     rootNote?: string
     highlight?: string[]
     setWhenAddMarker?: Function
-    cleanWhenChange? : any
+    cleanWhenChange?: any
 }
 
 function Neck({
@@ -24,56 +25,55 @@ function Neck({
     allowAddMarkers = false,
     setWhenAddMarker,
     name = "",
-    stringNum =  6,
-    fretRange = {min : 0,max:12},
+    stringNum = 6,
+    fretRange = { min: 0, max: 12 },
     fretMarkers = [],
     rootNote = "",
     highlight = [],
     cleanWhenChange
-
 }: GuitarNeckProps) {
-    const stringRefs = useRef<Array<HTMLDivElement | null>>(
-        Array.from({ length: stringNum}).map(() => null)
-    );
-
+    const fretNum = useMemo(() => fretRange.max - fretRange.min + 1, [])
+    const stringRefs = useRef<Array<HTMLDivElement | null>>(Array.from({ length: stringNum }).map(() => null));
+    const fretRefs = useRef<Array<HTMLDivElement | null>>(Array.from({ length: (fretNum) * stringNum }).map(() => null))
+    const fretMarkerRefs = useRef<Array<HTMLDivElement | null>>(Array.from({ length: (fretNum) * stringNum }).map(() => null))
     const neckRef = useRef<HTMLDivElement>(null)
 
     const [addedMarkers, setAddedMarkers] = useState<FretMarker[]>([])
 
+    function getMarkerIdx (fretMarker : FretMarker) {
+        return ((fretMarker.position[0] - 1) * fretNum) + fretMarker.position[1]
+    }
+
+    function getMarkerPos (fretIdx : number) : {string : number,fret : number} {
+        return {
+            string : Math.floor(fretIdx/fretNum + 1),
+            fret : fretIdx% fretNum
+        }
+    }
+
     //funciones===============================================>
     function addOrDeleteMarker(fretMarker: FretMarker, added: boolean = false) {
-        //agregar texto a cada traste que lo requiera
-        const string = stringRefs.current[(fretMarker.position[0] - 1)]
-        if (string) {
-            const fret = string.children[fretMarker.position[1] - fretRange.min]
-            if (fret) {
-                let fretMarkerElement : HTMLDivElement | null = fret.querySelector(`div.${guitarStyles.fretMarker}`) || null
-
-                //agregar o quitar estilos a marcadores
-                if (fretMarkerElement) {
-                    if (fretMarkerElement.classList.contains(guitarStyles.fretMarker_active)) {
-                        fretMarkerElement.classList.remove(guitarStyles.fretMarker_active)
-                    } else {
-                        //activar marcador
-                        fretMarkerElement.classList.add(guitarStyles.fretMarker_active)
-                        //agregar estilo extra
-                        if (fretMarker.text && highlight.includes(fretMarker.text)) {
-                            fretMarkerElement.style.backgroundColor = lightGreen[400]
-                        }else if (fretMarker.text && fretMarker.text === rootNote) {
-                            fretMarkerElement.style.backgroundColor = orange[400]
-                        }else{                
-                            fretMarkerElement.style.backgroundColor = grey[900]
-                            fretMarkerElement.style.color = grey[400]
-                            fretMarkerElement.style.border = `1px solid ${lightGreen[700]}`
-                        }
-
-                    }
-                    //agregar texto
-                    if (fretMarker.text) {
-                        fretMarkerElement.textContent = fretMarker.text
-                    }
-                }
+        const index = getMarkerIdx(fretMarker)
+        console.log("se agregara el marker",index)
+        if (!fretMarkerRefs.current) return
+        const fretMarkerEl = fretMarkerRefs.current[Math.floor(index)] || null
+        if (!fretMarkerEl) return
+        if (fretMarkerEl.classList.contains(guitarStyles.fretMarker_active)) {
+            fretMarkerEl.classList.remove(guitarStyles.fretMarker_active)
+        } else {
+            fretMarkerEl.classList.add(guitarStyles.fretMarker_active)
+            if (fretMarker.text && highlight.includes(fretMarker.text)) {
+                fretMarkerEl.style.backgroundColor = darkTheme.palette.primary.main
+            } else if (fretMarker.text && fretMarker.text === rootNote) {
+                fretMarkerEl.style.backgroundColor = darkTheme.palette.secondary.main
+            } else {
+                fretMarkerEl.style.backgroundColor = grey[900]
+                fretMarkerEl.style.color = grey[400]
+                fretMarkerEl.style.border = `1px solid ${darkTheme.palette.primary.light}`
             }
+        }
+        if (fretMarker.text) {
+            fretMarkerEl.textContent = fretMarker.text
         }
     }
 
@@ -92,18 +92,24 @@ function Neck({
         })
     }
 
-    function fretMarkerCleaner () {
-        console.log("limpiando")
-        if(neckRef.current){
-            console.log("limpiando 2")
-            const neckEl : HTMLDivElement = neckRef.current
+    function fretMarkerCleaner() {
+        if (fretMarkerRefs.current) {
             const activeClass = guitarStyles["fretMarker_active"]
-            const fretMarkers : HTMLDivElement[] = Array.from(neckEl.querySelectorAll(`.${activeClass}`)) || []
-            fretMarkers.forEach(el => {
-                el.classList.remove(activeClass)
-            })
+            const fretMarkers: HTMLDivElement[] = fretMarkerRefs.current.filter(
+                el => el && el.classList.contains(activeClass) ? true : false
+            ) as HTMLDivElement[]
+            fretMarkers.forEach(el => { el.classList.remove(activeClass) })
             setAddedMarkers([])
         }
+    }
+
+    function addFretClickEvent(pos : [number,number]) {
+        console.log("agregando")
+        let fretMarker: FretMarker = {
+            position: pos
+        }
+        addOrDeleteMarker(fretMarker, true)
+        updateAddedMarkers(fretMarker)
     }
 
     //efectos============================================>
@@ -115,18 +121,10 @@ function Neck({
         }
         //agregar evento de escucha a cada elemento html para agregar marcadores y ejecutar alguna funcion cuando esto pase
         if (allowAddMarkers) {
-            stringRefs.current.forEach((stringElement, stringIdx) => {
-                if (stringElement && stringElement.children) {
-                    const frets = stringElement.children
-                    Array.from(frets).forEach((fret, fretIdx) => {
-                        fret.addEventListener("click", () => {
-                            let fretMarker: FretMarker = {
-                                position: [stringIdx + 1, fretIdx]
-                            }
-                            addOrDeleteMarker(fretMarker, true)
-                            updateAddedMarkers(fretMarker)
-                        })
-                    })
+            fretRefs.current.forEach((fret, fretIdx) => {
+                if(fret){
+                    const pos = getMarkerPos(fretIdx)
+                    fret.addEventListener("click", () => addFretClickEvent([pos.string,pos.fret]))
                 }
             })
         }
@@ -141,11 +139,11 @@ function Neck({
         }
     }, [addedMarkers])
 
-    useEffect(()=>{
-        if(cleanWhenChange){
+    useEffect(() => {
+        if (cleanWhenChange) {
             fretMarkerCleaner()
         }
-    },[cleanWhenChange])
+    }, [cleanWhenChange])
 
     return (
         <div ref={neckRef} className={guitarStyles["neck"]}>
@@ -171,14 +169,19 @@ function Neck({
                 >
                     {/* Crear trastes del mástil */}
                     {Array.from({ length: (fretRange.max - fretRange.min) + 1 }).map((_, fretIdx) => (
-                        <div key={fretIdx} className={
-                            // agregar estilos del backgraund del traste segun si es una cuerda al aire o no
-                            fretRange.min == 0 && fretIdx == 0 ?
-                                `${guitarStyles.fret} ${guitarStyles["string-open"]}`
-                                : `${guitarStyles.fret} ${guitarStyles[`string-fret`]}`
-                        }>
+                        <div
+                            ref={(ref) => { fretRefs.current[(stringIdx * fretNum) + fretIdx] = ref }}
+                            key={fretIdx}
+                            className={
+                                // agregar estilos del backgraund del traste segun si es una cuerda al aire o no
+                                fretRange.min == 0 && fretIdx == 0 ?
+                                    `${guitarStyles.fret} ${guitarStyles["string-fret-open"]}`
+                                    : `${guitarStyles.fret} ${guitarStyles[`string-fret-close`]}`
+                            }>
                             {/* agregar fretMakers */}
-                            <div className={`${guitarStyles.fretMarker}`}></div>
+                            <div
+                                ref={(ref) => { fretMarkerRefs.current[(stringIdx * fretNum) + fretIdx] = ref }}
+                                className={`${guitarStyles.fretMarker}`}></div>
                         </div>
                     ))}
                 </div>

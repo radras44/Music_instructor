@@ -6,11 +6,12 @@ import { green, lightGreen } from "@mui/material/colors"
 import Link from "next/link"
 import { CSSProperties } from "react"
 import MUILink from "@mui/material/Link"
+import { darkTheme } from "@/theme"
 function HighLighter({ text }: { text: string }) {
     const textArray: string[] = text.split("'")
     const textStyles: CSSProperties = {
-        color: lightGreen[400],
-        fontWeight: 600
+        color: darkTheme.palette.primary.main,
+        fontWeight: 400
     }
     return (
         <>

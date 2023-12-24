@@ -1,12 +1,11 @@
 import { neckTestQuestion, FretMarker } from "@/interfaces/baseInterfaces"
 import MuiModal from "@mui/material/Modal"
-import { CheckCircle, HorizontalRule, Check, Clear } from "@mui/icons-material"
+import { CheckCircle, HorizontalRule, Check, Clear, Book } from "@mui/icons-material"
 import { ButtonProps, Box, Paper, Button, Typography, Fade, Card, Pagination } from "@mui/material"
 import { useState, useEffect, CSSProperties, useRef } from "react"
 import Guitar from "../Guitar"
 import styles from "@/styles/styles"
 import { SxProps, useTheme } from "@mui/material/styles"
-import guitarStyles from "@/styles/guitar.module.css"
 
 interface TestModalButtonProps extends ButtonProps {
     title: string
@@ -16,42 +15,40 @@ interface TestModalButtonProps extends ButtonProps {
 
 function TestButton({ onClick, title, questionNum, description }: TestModalButtonProps) {
     const theme = useTheme()
-    const titleStyles: CSSProperties = {
-        color: "primary.main",
-        [theme.breakpoints.down("md")]: { fontSize: 14 }
+    const styles: {[key: string]: SxProps } = {
+        titleBox: {
+            display: "flex", alignItems: "center", gap: 1
+        },
+        title: {
+            color: "primary.main",
+            [theme.breakpoints.down("md")]: { fontSize: 14 }
+        },
+        description: {
+            color: "text.secondary",
+            [theme.breakpoints.down("md")]: { fontSize: 12 }
+        },
+        itemNumber: {
+            color: "grey.400",
+            fontSize: 12,
+            [theme.breakpoints.down("md")]: { fontSize: 10 }
+        },
+        button: {
+            flex: 1, display: "flex", flexDirection: "column", alignItems: "start",
+            p: 3, textTransform: "lowercase", gap: 1, width: "100%", color: "primary.main",
+            borderLeft: 1, backgroundColor: "rgba(255,255,255,0.05)"
+        }
     }
-    const DescStyles: CSSProperties = {
-        color: "text.secondary",
-        [theme.breakpoints.down("md")]: { fontSize: 12 }
-    }
-    const itemNumberStyles: CSSProperties = {
-        color: "grey.400",
-        fontSize: 12,
-        [theme.breakpoints.down("md")]: { fontSize: 10 }
-    }
-    const buttonStyles = {
-        flex: 1, display: "flex", flexDirection: "column", alignItems: "center",
-        p: 3, textTransform: "lowercase", gap: 1, width: "100%"
-    }
+
+
     return (
-        <Box sx={{
-            display: "flex", flexDirection: "column", alignItems: "center"
-        }}>
-            <Paper elevation={4} sx={{
-                width: "70%"
-            }}>
-                <Button onClick={onClick} variant="text" color="success" sx={buttonStyles}>
-                    <Typography variant="h6" sx={titleStyles}>{title}</Typography>
-                    <Typography variant="subtitle1" sx={DescStyles}>{description}</Typography>
-                    <Typography
-                        sx={itemNumberStyles}
-                        variant="caption"
-                    >{questionNum} Items</Typography>
-
-                </Button>
-
-            </Paper>
-        </Box>
+        <Button onClick={onClick} variant="text" color="primary" sx={styles.button}>
+            <Box sx={styles.titleBox}>
+                <Book />
+                <Typography variant="h6" sx={styles.title}>{title}</Typography>
+            </Box>
+            <Typography variant="subtitle1" sx={styles.description}>{description}</Typography>
+            <Typography sx={styles.itemNumber}variant="caption">{questionNum} Items</Typography>
+        </Button>
     )
 }
 
@@ -120,7 +117,7 @@ function Modal({ useObj, title, description, hiddeFretNumbers }: QuestionModalPr
         //aplicar metodo de verificacion
         if (currentQuestion.verificationMethod) {
             result = currentQuestion.verificationMethod(selectedFrets, currentQuestion.solutions)
-        }else{
+        } else {
             result = currentQuestion.solutions.some((solution: FretMarker[]) => {
                 return selectedFretString === JSON.stringify(solution);
             });

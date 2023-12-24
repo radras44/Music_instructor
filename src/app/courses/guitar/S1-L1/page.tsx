@@ -20,7 +20,7 @@ function Segment_1() {
         <Lesson.Segment>
             <Text.Title text="Cuerdas"/>
             <Text.P text="La lectura de diagrama es util para poder replicar acordes, melodias, escalas y otras estructuras musicales en la guitarra, para poder leer un diagrama correctamente deben tenerse en cuenta estos puntos:" />
-            <Text.ListItem highlight={true} text="mientras mas fina es una Cuerda, mas 'agudo/alto' sera su sonido, 'mientras mas gruesa' es una Cuerda, mas 'grave/bajo' sera su sonido" />
+            <Text.ListItem highlight={true} text="mientras mas fina es una Cuerda, mas 'agudo/alto' sera su sonido, mientras mas gruesa es una Cuerda, mas 'grave/bajo' sera su sonido" />
             <Text.ListItem highlight={true} text="'Las Cuerdas se cuentan desde abajo hacia arriba', de las mas aguda a la mas grave" />
             <Text.P text="Aqui hay una plantilla de diagrama de guitarra con las indicaciones del numero de cada Cuerda:" />
             <Guitar.NeckContainer fontSize={10}>

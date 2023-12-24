@@ -3,7 +3,7 @@
 import { Course, CourseSection } from "@/interfaces/baseInterfaces";
 import { Box, Button, Card, Popper, Typography } from "@mui/material";
 import { Info } from "@mui/icons-material";
-import ThemeContainer from "@/themes";
+import ThemeContainer from "@/theme";
 import guitarCourse from "./courses/guitar/Register";
 import React, { CSSProperties } from "react";
 import { SxProps, useTheme } from "@mui/material/styles"
